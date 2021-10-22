@@ -9,6 +9,6 @@ class User < ApplicationRecord
             format: { with: VALID_PASSWORD,
                       message: "password must contain small, large letters, special characters and numbers," \
                                " must be more than 5 characters" }
-  validates :first_name, length: { minimum: 2 }, unless: -> { first_name.blank? }
-  validates :last_name, length: { minimum: 2 }, unless: -> { last_name.blank? }
+  validates :first_name, length: { minimum: 2 }, presence: true
+  validates :last_name, length: { minimum: 2 }, presence: true
 end

@@ -1,9 +1,5 @@
 class User < ApplicationRecord
-  # VALID_PASSWORD = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/.freeze
-  VALID_PASSWORD = /(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/.freeze
-
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP,
-                                              message: "invalid email" }
+  validates :email, presence: true, length: { minimum: 6 }
   validates :password,
             confirmation: true,
             presence: true,

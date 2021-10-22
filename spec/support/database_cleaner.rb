@@ -4,8 +4,6 @@ RSpec.configure do |config|
   end
   config.before do
     DatabaseCleaner.strategy = :transaction
-  end
-  config.before do
     DatabaseCleaner.start
   end
   config.after do

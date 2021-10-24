@@ -36,4 +36,9 @@ RSpec.describe User, type: :model do
     user.password = "qqqq"
     expect(user).not_to be_valid
   end
+
+  it "clears user" do
+    user.destroy
+    expect(-> { user.reload }).to raise_error(ActiveRecord::RecordNotFound)
+  end
 end

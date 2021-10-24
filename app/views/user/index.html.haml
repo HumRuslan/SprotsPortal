@@ -1,0 +1,15 @@
+%h1{:class => "text-center"} User's List
+%div(class="row" )
+  %div(class="col-md-8 offset-md-2")
+    %table(class="table")
+      %thead(class="thead-dark")
+        %tr
+          %th(scope="col") First Name
+          %th(scope="col") Last Name
+          %th(scope="col")Email
+      %tbody
+        - @users.each do |user|
+          %tr(scope="row")
+            %td= user.first_name ? user.first_name : "Not set"
+            %td= user.last_name ? user.last_name : "Not set"
+            %td= user.email

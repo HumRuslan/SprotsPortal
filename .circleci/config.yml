@@ -18,7 +18,6 @@ executors:
     docker:
       - image: circleci/ruby:<< parameters.tag >>-node
         environment:
-          CIRCLE_CI: true
           RAILS_ENV: test
           MYSQL_URL: "mysql2://root:mysql@127.0.0.1/<< parameters.test_db_name >>"
           REDIS_URL: "redis://127.0.0.1"

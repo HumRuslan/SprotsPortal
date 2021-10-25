@@ -1,5 +1,9 @@
 version: 2.1
 
+orbs:
+  ruby: circleci/ruby@1.1.0
+  node: circleci/node@2
+
 executors:
   default:
     working_directory: ~/hix_mysql
@@ -37,9 +41,10 @@ jobs:
     executor: default
     steps:
       - checkout
+      - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
+          cache-key: "yarn.lock
       - restore_cache:
           keys:
             - hix_mysql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
@@ -84,3 +89,4 @@ workflows:
   integration:
     jobs:
       - build
+

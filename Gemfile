@@ -29,14 +29,19 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
+  gem 'rails_best_practices'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
-
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'simplecov'
   # Add rubocop
   gem 'rubocop', '~> 1.22'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+
+  # Add Haml
+  gem 'haml'
 end
 
 group :development do
@@ -46,6 +51,8 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
+  # Add Haml
+  gem "haml-rails"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
@@ -54,12 +61,12 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'database_cleaner-active_record'
-  gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 
   # Add rspec-rails
+  gem 'rails-controller-testing'
   gem "rspec-rails"
 end
 
@@ -70,9 +77,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootstrap', '~> 4.6.0'
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sassc-rails', '~> 2.1.2'
-
-# Add Haml
-gem 'haml'
 
 # Add Simple Form
 gem 'simple_form'

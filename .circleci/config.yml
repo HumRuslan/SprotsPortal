@@ -93,7 +93,7 @@ examples:
           steps:
             - tests/setup-and-run-test:
                 bundler-version: 2.0.1
-workflows:
-  test:
-    jobs:
-      - run-tests
+        workflows:
+          test:
+            jobs:
+              - run-tests

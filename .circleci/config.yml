@@ -73,7 +73,7 @@ commands:
           path: test_results
 
 workflows:
-  version: 2
+  version: 2.1
   integration:
     jobs:
       - build

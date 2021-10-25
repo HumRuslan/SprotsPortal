@@ -324,6 +324,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   bootstrap (~> 4.6.0)
   bootstrap-sass (~> 2.3.2.2)
+  bundler (~> 2.2, >= 2.2.29)
   byebug
   capybara (>= 3.26)
   database_cleaner-active_record

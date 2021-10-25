@@ -89,7 +89,6 @@ examples:
             steps:
               - tests/setup-and-run-test:
                   bundler-version: 2.2.29
-
         workflows:
           test:
             jobs:

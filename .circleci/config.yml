@@ -27,6 +27,7 @@ jobs:
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
+      BUNDLER_VERSION: 2.2.29
       PGHOST: 127.0.0.1
       PGUSER: circleci-demo-ruby
       PGPASSWORD: ""

@@ -117,8 +117,6 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
-    libv8 (3.16.14.19)
-    libv8 (3.16.14.19-x86_64-linux)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -186,7 +184,6 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    ref (2.0.0)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rspec-core (3.10.1)
@@ -257,9 +254,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     temple (0.8.2)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (1.1.0)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -300,7 +294,6 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   database_cleaner-active_record
-  execjs (~> 2.8, >= 2.8.1)
   factory_bot_rails
   faker!
   haml
@@ -319,7 +312,6 @@ DEPENDENCIES
   selenium-webdriver
   simple_form
   spring
-  therubyracer
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

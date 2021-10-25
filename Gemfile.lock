@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/faker-ruby/faker.git
-  revision: f160a89366404cfd8ac6ea7c45bb64c61c0dd74b
+  revision: e58b15f5e9e0044b43cd2229bb46877aa64c104c
   branch: master
   specs:
     faker (2.19.0)
@@ -203,7 +203,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.22.1)
+    rubocop (1.22.2)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)

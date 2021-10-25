@@ -79,17 +79,16 @@ examples:
       version: 2.1
       orbs:
         tests: zfhui/ruby-tests@0.0.2
-
-    jobs:
-      run-tests:
-        working_directory: ~/app
-        executor:
-          name: tests/default
-          tag: 2.6.3
-          test_db_name: sports_portal
-        steps:
-          - tests/setup-and-run-test:
-              bundler-version: 2.2.29
+        jobs:
+          run-tests:
+            working_directory: ~/app
+            executor:
+              name: tests/default
+              tag: 2.6.3
+              test_db_name: sports_portal
+            steps:
+              - tests/setup-and-run-test:
+                  bundler-version: 2.2.29
 
   workflows:
     test:

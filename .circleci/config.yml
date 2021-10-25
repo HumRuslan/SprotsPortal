@@ -1,97 +1,59 @@
-# This code is licensed from CircleCI to the user under the MIT license.
-# See here for details: https://circleci.com/developer/orbs/licensing
 version: 2.1
 
-description: An Orb that installs your Ruby Gems and runs Rubocop and RSpec (only MySQL support for now)
+orbs:
+  ruby: circleci/ruby@1.1.0
+  node: circleci/node@2
 
-executors:
-  default:
-    description: The official CircleCI Ruby Docker Image.
-    parameters:
-      tag:
-        default: latest
-        description: The `circleci/ruby` Docker Image version tag.
-        type: string
-      test_db_name:
-        description: Name for the testing DB
-        type: string
+jobs:
+  build:
     docker:
-      - image: circleci/ruby:2.7.0
-        environment:
-          RAILS_ENV: test
-          MYSQL_URL: "mysql2://root:mysql@127.0.0.1/sports_portal"
-          REDIS_URL: "redis://127.0.0.1"
-      - image: circleci/mysql:5.7
-        environment:
-          MYSQL_DATABASE: sports_portal
-          MYSQL_ROOT_PASSWORD: ''
-      - image: redis
-
-commands:
-  setup-and-run-tests:
-    description: Installs Bundler, use it to install all dependencies and run RSpec tests.
-    parameters:
-      bundler-version:
-        description: Your prefered bundler version.
-        type: string
+      - image: cimg/ruby:2.7.0
     steps:
       - checkout
-      - run:
-          name: Fetch git submodules
-          command: git submodule update --init
-      - restore_cache:
-          keys:
-            - gem-cache-{{ checksum "Gemfile.lock" }}
-            - gem-cache-
-      - run:
-          name: Bundle
-          command: |
-            gem install bundler -v << parameters.bundler-version >>
-            bundle check --path=vendor/bundle || bundle install --jobs=4 --retry=3 --path=vendor/bundle
-      - save_cache:
-          name: save gem dependencies to cache
-          key: gem-cache-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - run:
-          name: Rubocop
-          command: bundle exec rubocop
+      - ruby/install-deps
+      # Store bundle cache
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+  test:
+    parallelism: 3
+    docker:
+      - image: cimg/ruby:2.7-node
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          DB_HOST: 127.0.0.1
+          DB_USERNAME: root
+          DB_PASSWORD: ''
+      - image: circleci/mysql:8.0.18
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      BUNDLER_VERSION: 2.2.29
+      DB_HOST: 127.0.0.1
+      DB_USERNAME: root
+      DB_PASSWORD: ''
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
-          name: Migrate DB
-          command: bundle exec rails db:migrate
-      - run:
-          name: run RSpec tests
-          command: |
-            bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - store_test_results:
-          path: test_results
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      # Run rspec in parallel
+      - ruby/rspec-test
+      - ruby/rubocop-check
 
-examples:
-  setup-ruby-and-run-tests:
-    description: Runs Rubocop and RSpec for this Ruby project
-    usage:
-      version: 2.1
-      orbs:
-        tests: zfhui/ruby-tests@0.0.2
-
-      jobs:
-        run-tests:
-          working_directory: ~/app
-          executor:
-            name: tests/default
-            tag: 2.6.3
-            test_db_name: myproject_test
-          steps:
-            - tests/setup-and-run-test:
-                bundler-version: 2.0.1
-
-      workflows:
-        test:
-          jobs:
-            - run-tests
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build

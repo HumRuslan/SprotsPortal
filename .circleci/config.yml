@@ -1,89 +1,38 @@
-
-version: 2.1
-
-executors:
-  default:
-    working_directory: ~/hix_mysql
+version: 2
+jobs:
+  build:
     docker:
       - image: circleci/ruby:2.7.0
+        auth:
+          username: gruslan
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
           BUNDLE_RETRY: 3
           BUNDLER_VERSION: 2.2.29
           RAILS_ENV: test
-          DB_HOST: 127.0.0.1
-          DB_USERNAME: root
-          DB_PASSWORD: ''
-      - image: circleci/mysql:8.0.18
-        command: [--default-authentication-plugin=mysql_native_password]
+      - image: circleci/postgres:9.5-alpine
+        auth:
+          username: gruslan
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          MYSQL_ROOT_HOST: '%'
-
-commands:
-  configure_bundler:
-    description: Configure bundler
-    steps:
-      - run:
-          name: Configure bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
-jobs:
-  build:
-    executor: default
+          POSTGRES_USER: root
+          POSTGRES_DB: srorts_portal
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - hix_mysql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - hix_mysql-
-      - configure_bundler
       - run:
-          name: Install bundle
-          command: bundle install
+          name: Bundle Install
+          command: bundle check || bundle install
       - run:
           name: Wait for DB
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
-          name: Setup DB
-          command: bundle exec rails db:create db:schema:load --trace
-      - save_cache:
-          key: hix_mysql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - ./hix_mysql
+          name: Database setup
+          command: bin/rails db:schema:load --trace
       - run:
-          name: RSpec
-          command: |
-            bundle exec rspec --profile 10 \
-                              --format progress
+          name: Run Tests
+          command: bin/rails test
       - store_artifacts:
           path: coverage
-      - save_cache:
-          key: hix-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - ./hix
-      - attach_workspace:
-          at: ~/
-      - configure_bundler
-      - run:
-          name: Rubocop
-          command: bundle exec rubocop
-      - run:
-          name: Rails Best Practices
-          command: bundle exec rails_best_practices
-workflows:
-  version: 2
-  integration:
-    jobs:
-      - build

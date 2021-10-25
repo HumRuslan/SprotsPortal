@@ -1,67 +1,46 @@
-# This code is licensed from CircleCI to the user under the MIT license.
-# See here for details: https://circleci.com/developer/orbs/licensing
 version: 2.1
 
-description: An Orb that installs your Ruby Gems and runs Rubocop and RSpec (only MySQL support for now)
+orbs:
+  ruby: circleci/ruby@1.1.3
+  node: circleci/node@4.5.1
 
-executors:
-  default:
-    description: The official CircleCI Ruby Docker Image.
-    parameters:
-      tag:
-        default: latest
-        description: The `circleci/ruby` Docker Image version tag.
-        type: string
-      test_db_name:
-        description: Name for the testing DB
-        type: string
+jobs:
+  build:
     docker:
-      - image: circleci/ruby:2.7.0
-        environment:
-          CIRCLE_CI: true
-          RAILS_ENV: test
-          MYSQL_URL: "mysql2://root:mysql@127.0.0.1/sports_portal"
-          REDIS_URL: "redis://127.0.0.1"
-      - image: circleci/mysql:5.7
-        environment:
-          MYSQL_DATABASE: sports_portal
-          MYSQL_ROOT_PASSWORD: ''
-
-commands:
-  setup-and-run-tests:
-    description: Installs Bundler, use it to install all dependencies and run RSpec tests.
-    parameters:
-      bundler-version:
-        description: Your prefered bundler version.
-        type: string
+      - image: cimg/ruby:2.7.0
     steps:
       - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+  test:
+    docker:
+      - image: cimg/ruby:2.7.0
+        environment:
+          RAILS_ENV: test
+      - image: circleci/mysql:latest
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+    environment:
+      BUNDLE_JOBS: "4"
+      BUNDLE_RETRY: "3"
+      BUNDLE_PATH: vendor/bundle
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
-          name: Fetch git submodules
-          command: git submodule update --init
-      - restore_cache:
-          keys:
-            - gem-cache-{{ checksum "Gemfile.lock" }}
-            - gem-cache-
-      - run:
-          name: Bundle
+          name: Watting stand up database
           command: |
-            gem install bundler -v 2.2.29
-            bundle check --path=vendor/bundle || bundle install --jobs=4 --retry=3 --path=vendor/bundle
-      - save_cache:
-          name: save gem dependencies to cache
-          key: gem-cache-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+            dockerize -wait \
+            tcp://127.0.0.1:3306 -timeout 1m
+      - run: mv ./config/database.yml.ci ./config/database.yml
       - run:
-          name: Rubocop
-          command: bundle exec rubocop
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      - run:
-          name: Migrate DB
-          command: bundle exec rails db:migrate
+          name: Database setup
+          command: |
+            bundle exec rails db:create db:migrate db:seed
       - ruby/rspec-test
       - ruby/rubocop-check
 

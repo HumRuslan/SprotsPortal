@@ -338,7 +338,7 @@ DEPENDENCIES
   rails (~> 6.1.4, >= 6.1.4.1)
   rails-controller-testing
   rails_best_practices
-  rspec-rails (~> 5.0.0)
+  rspec-rails
   rubocop (~> 1.22)
   rubocop-rails
   rubocop-rspec

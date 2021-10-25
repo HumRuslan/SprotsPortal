@@ -38,7 +38,7 @@ group :development, :test do
   gem 'rubocop-rspec'
 
   # Use mysql as the database for Active Record
-  gem 'mysql2', '~> 0.4.10'
+  gem 'mysql2', '~> 0.5.2'
 end
 
 group :development do

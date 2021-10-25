@@ -37,8 +37,6 @@ jobs:
     executor: default
     steps:
       - checkout
-      - ruby/install-deps
-          # Store bundle cache
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"

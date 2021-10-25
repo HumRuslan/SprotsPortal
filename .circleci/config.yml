@@ -11,7 +11,8 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages
+      - node/install-packages:
+          pkg-manager: yarn
   test:
     docker:
       - image: cimg/ruby:2.7.0
@@ -28,7 +29,8 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
           name: remove mysql2 temporary
           command: |

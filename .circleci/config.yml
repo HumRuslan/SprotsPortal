@@ -16,14 +16,14 @@ executors:
         description: Name for the testing DB
         type: string
     docker:
-      - image: circleci/ruby:<< parameters.tag >>-node
+      - image: circleci/ruby:2.7.0
         environment:
           RAILS_ENV: test
-          MYSQL_URL: "mysql2://root:mysql@127.0.0.1/<< parameters.test_db_name >>"
+          MYSQL_URL: "mysql2://root:mysql@127.0.0.1/sports_portal"
           REDIS_URL: "redis://127.0.0.1"
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_DATABASE: << parameters.test_db_name >>
+          MYSQL_DATABASE: sports_portal
           MYSQL_ROOT_PASSWORD: ''
       - image: redis
 

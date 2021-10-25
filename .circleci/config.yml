@@ -5,6 +5,7 @@ executors:
     working_directory: ~/hix_mysql
     docker:
       - image: circleci/ruby:2.7.0
+
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
@@ -36,6 +37,11 @@ jobs:
     executor: default
     steps:
       - checkout
+      - ruby/install-deps
+          # Store bundle cache
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
       - restore_cache:
           keys:
             - hix_mysql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
@@ -50,6 +56,22 @@ jobs:
       - run:
           name: Setup DB
           command: bundle exec rails db:create db:schema:load --trace
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format progress
+      - store_artifacts:
+          path: coverage
+      - save_cache:
+          key: hix-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - ./hix
+
       - save_cache:
           key: hix_mysql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:

@@ -44,7 +44,7 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock
+          cache-key: "yarn.lock"
       - restore_cache:
           keys:
             - hix_mysql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}

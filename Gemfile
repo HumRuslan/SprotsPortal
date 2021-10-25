@@ -39,9 +39,6 @@ group :development, :test do
   gem 'rubocop', '~> 1.22'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
-
-  # Add Haml
-  gem 'haml'
 end
 
 group :development do
@@ -80,3 +77,6 @@ gem 'sassc-rails', '~> 2.1.2'
 
 # Add Simple Form
 gem 'simple_form'
+
+# Add Haml
+gem 'haml'

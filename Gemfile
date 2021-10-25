@@ -30,6 +30,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'therubyracer', platforms: :ruby
 
+gem 'execjs', '~> 2.8', '>= 2.8.1'
+
 group :development, :test do
   gem 'rails_best_practices'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

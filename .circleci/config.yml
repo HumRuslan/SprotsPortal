@@ -72,7 +72,7 @@ commands:
       - store_test_results:
           path: test_results
 
-workflows:
+examples:
   setup-ruby-and-run-tests:
     description: Runs Rubocop and RSpec for this Ruby project
     usage:
@@ -86,7 +86,12 @@ workflows:
           executor:
             name: tests/default
             tag: 2.6.3
-            test_db_name: myproject_test
+            test_db_name: sports_portal
           steps:
             - tests/setup-and-run-test:
                 bundler-version: 2.0.1
+
+      workflows:
+        test:
+          jobs:
+            - run-tests

@@ -5,9 +5,7 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages:
-          cache-key: yarn.lock
-          pkg-manager: yarn
+      - node/install-packages
   checking:
     docker:
       - image: 'cimg/ruby:2.7-node'

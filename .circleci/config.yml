@@ -75,25 +75,11 @@ commands:
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
           path: test_results
-examples:
-  setup-ruby-and-run-tests:
-    description: Runs Rubocop and RSpec for this Ruby project
-    usage:
-      version: 2.1
-      orbs:
-        tests: zfhui/ruby-tests@0.0.2
-
-      jobs:
-        run-tests:
-          working_directory: ~/app
-          executor:
-            name: tests/default
-            tag: 2.6.3
-            test_db_name: myproject_test
-          steps:
-            - tests/setup-and-run-test:
-                bundler-version: 2.0.1
-        workflows:
-          test:
-            jobs:
-              - run-tests
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build

@@ -1,5 +1,4 @@
 language: ruby
-
 rvm:
   - 2.7.0
 cache:
@@ -7,11 +6,10 @@ cache:
 services:
   - mysql
 before_install:
-  - mysql -e 'create database sports_portal_test'
+  - gem install bundler:2.2.29
 before_script:
   - bundle install --jobs=3 --retry=3
-  - bundle exec rake db:create
-  - bundle exec rake db:schema:load
+  - mysql -e 'create database my_app_test'
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare

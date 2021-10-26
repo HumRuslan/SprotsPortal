@@ -50,6 +50,6 @@ test:
 #
 production:
   <<: *default
-  database: SportsPortal_production
+  database: sports_portal_prod
   username: SportsPortal
   password: <%= ENV['SPORTSPORTAL_DATABASE_PASSWORD'] %>

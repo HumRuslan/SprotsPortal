@@ -8,12 +8,11 @@ cache:
 services:
   - mysql
 before_install:
-  - gem install bundler
   - nvm install --lts
 before_script:
   - bunle install --jobs=3 --retry=3
   - yarn
   - bundle exec rake db:create
-  - bundle exec rake db:create
+  - bundle exec rake db:shema:load
 script:
   - bundle exec rake spec

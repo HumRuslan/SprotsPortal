@@ -4,15 +4,15 @@ rvm:
   - 2.7.0
 cache:
   - bundler
-  - yarn
 services:
   - mysql
 before_install:
-  - gem install bundler:2.2.29
+  - mysql -e 'create database sports_portal_test'
 before_script:
   - bundle install --jobs=3 --retry=3
-  - yarn
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
 script:
-  - bundle exec rake spec
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec/

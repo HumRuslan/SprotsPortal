@@ -1,0 +1,23 @@
+%div(class="row m-2")
+  %div(class="col-md-5")
+    =image_tag("log.png", class: "img-fluid w-100")
+  %div(class="col-md-7")
+    %div(class="row")
+      %div(class="col-md-12 text-right")
+        %span(class="pr-2 text-secondary") Don't have an account?
+        = link_to 'Get Started', new_user_registration_path, class: "btn border-danger text-danger b-0 w-25"
+      %h2(class="text-center m-5 p-5" ) Log in to Sports Hub
+      %div(class="col-md-12")
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .form-inputs
+            = f.input :email,
+              required: false,
+              autofocus: true,
+              input_html: { autocomplete: "email" }
+            = f.input :password,
+              required: false,
+              input_html: { autocomplete: "current-password" }
+            - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+              = link_to "Forgot your password?", new_password_path(resource_name)
+          .form-actions
+            = f.button :submit, "Log in", class: "btn-danger w-100"

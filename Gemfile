@@ -80,3 +80,6 @@ gem 'simple_form'
 
 # Add Haml
 gem 'haml'
+
+# Auth gem
+gem 'devise'

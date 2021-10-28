@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title SportsPortal
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    - if alert
+      %div(class="row" )
+        %p(class="alert alert-danger col-md-12 text-center" role="alert")=alert
+    - if notice
+      %div(class="row" )
+        %p(class="alert alert-info col-md-12 text-center" role="alert")=notice
+    %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      %a.navbar-brand{:href => "#"} Navbar
+      %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+        %span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        %ul.navbar-nav.mr-auto
+        %div
+          - if user_signed_in?
+            %span= current_user.email
+            = link_to 'Log out', destroy_user_session_path, :method => :delete
+          - else
+            = link_to 'Sign in', new_user_session_path
+            |
+            = link_to 'Sign up', new_user_registration_path
+    = yield

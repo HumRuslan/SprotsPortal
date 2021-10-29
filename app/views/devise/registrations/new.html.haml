@@ -1,0 +1,35 @@
+%div(class="row m-2")
+  %div(class="col-md-5")
+    =image_tag("log.png", class: "img-fluid w-100")
+  %div(class="col-md-7")
+    %div(class="row")
+      %div(class="col-md-12 text-right")
+        %span(class="pr-2 text-secondary") Already have an account?
+        = link_to 'Sign in', new_user_session_path, class: "btn border-danger text-danger b-0 w-25"
+    %h2(class="text-center m-5 p-5" ) Create account
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = f.error_notification
+      .form-inputs
+        %div(class="row" )
+          %div(class="col-md-6" )
+            = f.input :first_name,
+              required: true,
+              autofocus: true,
+              input_html: { autocomplete: "first_name" }
+          %div(class="col-md-6" )
+            = f.input :last_name,
+              required: true,
+              input_html: { autocomplete: "last_name" }
+        = f.input :email,
+          required: true,
+          autofocus: true,
+          input_html: { autocomplete: "email" }
+        = f.input :password,
+          required: true,
+          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+          input_html: { autocomplete: "new-password" }
+        = f.input :password_confirmation,
+          required: true,
+          input_html: { autocomplete: "new-password" }
+      .form-actions
+        = f.button :submit, "Sign up", class: "btn-danger w-100"

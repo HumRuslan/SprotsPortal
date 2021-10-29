@@ -9,4 +9,11 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    %div(class="container")
+      - if alert
+        %div(class="row" )
+          %p(class="alert alert-danger col-md-12 text-center" role="alert")=alert
+      - if notice
+        %div(class="row" )
+          %p(class="alert alert-info col-md-12 text-center" role="alert")=notice
+      = yield

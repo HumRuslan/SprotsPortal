@@ -80,3 +80,5 @@ gem 'simple_form'
 
 # Add Haml
 gem 'haml'
+
+gem 'devise'

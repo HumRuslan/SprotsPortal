@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  root "home#index"
+  devise_scope :user do
+    root "devise/sessions#new"
+  end
+
   devise_for :users, controllers: { registrations: 'auth/registrations' }
 
   namespace :account do

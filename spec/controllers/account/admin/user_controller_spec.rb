@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserController, type: :controller do
+RSpec.describe Account::Admin::UserController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
 
   describe "when user is login" do

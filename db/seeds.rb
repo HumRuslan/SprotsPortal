@@ -15,7 +15,8 @@ end
 if Rails.env.development?
   User.create(admin)
   20.times do
-    FactoryBot.create :user
+    user = FactoryBot.create :user
+    user.confirm
   end
 end
 

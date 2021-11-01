@@ -1,0 +1,21 @@
+-provide(:page, 'users')
+-provide(:subpage, 'users')
+%div(class="row" )
+  %div(class="col-md-8")
+    =render "account/admin/user/_part/sub_menu"
+    %table(class="table")
+      %thead(class="table-secondary")
+        %tr(class="text-center" )
+          %th{ scope: "col", class: "w-50"} Name
+          %th(scope="col") Status
+          %th(scope="col") Actions
+      %tbody
+        - @users.each do |user|
+          %tr(scope="row")
+            %td= user.first_name + " " + user.last_name
+            %td= user.locked_at == nil ? raw("<span class='text-success'>Active</span>") : "Blocked"
+            %td(class="text-center")
+              -if user.locked_at == nil
+                =link_to "Block", account_admin_blocked_path(user_id: user.id), method: :put, :class => "btn btn-secondary w-75 btn-sm"
+              -else
+                =link_to "Activate", account_admin_activated_path(user_id: user.id), method: :put, :class => "btn btn-success w-75 btn-sm"

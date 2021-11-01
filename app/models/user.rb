@@ -4,7 +4,8 @@ class User < ApplicationRecord
          :recoverable,
          :rememberable,
          :confirmable,
-         :validatable
+         :validatable,
+         :lockable
   enum role: { user: 0, admin: 1 }
 
   validates :first_name, length: { minimum: 2 }, presence: true

@@ -9,15 +9,10 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %div(class="container-fluid")
-      - if alert
-        %div(class="row" )
-          %p(class="alert alert-danger col-md-12 text-center" role="alert")=alert
-      - if notice
-        %div(class="row" )
-          %p(class="alert alert-info col-md-12 text-center" role="alert")=notice
-      %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        %a.navbar-brand{:href => "#"} Navbar
+    %div(class="container-fluid p-0")
+      %nav.navbar.navbar-expand-lg.navbar-light.bg-light{class: "p-0 mb-3"}
+        %div(class="h-100 bg-danger p-2 text-white")
+          %h2(class="m-3 px-3" ) Sports Hub
         %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
           %span.navbar-toggler-icon
         #navbarSupportedContent.collapse.navbar-collapse
@@ -30,6 +25,15 @@
               = link_to 'Sign in', new_user_session_path
               |
               = link_to 'Sign up', new_user_registration_path
+      - if alert
+        %div(class="row" )
+          %p(class="alert alert-danger col-md-12 text-center" role="alert")=alert
+      - if notice
+        %div(class="row" )
+          %p(class="alert alert-info col-md-12 text-center" role="alert")=notice
+      %div(class="row")
+        %div(class="col-md-10 offset-md-1" )
+          %h1=yield(:page).titleize
       %div(class="row")
         %div(class="col-md-1")
           =render "layouts/_part/admin_menu"

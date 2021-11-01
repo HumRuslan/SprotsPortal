@@ -30,4 +30,8 @@
               = link_to 'Sign in', new_user_session_path
               |
               = link_to 'Sign up', new_user_registration_path
-      = yield
+      %div(class="row")
+        %div(class="col-md-1")
+          =render "layouts/_part/admin_menu"
+        %div(class="col-md-9 offset-md-1")
+          = yield

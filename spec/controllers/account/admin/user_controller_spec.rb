@@ -30,7 +30,7 @@ RSpec.describe Account::Admin::UserController, type: :controller do
 
     it 'has not redirect to index admin page' do
       get :index
-      expect(response).to redirect_to(root_path)
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 end

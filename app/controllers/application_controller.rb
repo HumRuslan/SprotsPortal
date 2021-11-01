@@ -19,8 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_access_denied
-    sign_out current_user
     flash["alert"] = 'Access denied'
-    redirect_to(root_path)
+    render file: "public/401.html", status: :unauthorized
   end
 end

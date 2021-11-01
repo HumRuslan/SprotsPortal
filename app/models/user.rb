@@ -9,8 +9,10 @@ class User < ApplicationRecord
 
   validates :first_name, length: { minimum: 2 }, presence: true
   validates :last_name, length: { minimum: 2 }, presence: true
-
   before_create :set_default_role
+
+  private
+
   def set_default_role
     self.role ||= :user
   end

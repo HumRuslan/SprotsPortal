@@ -82,3 +82,5 @@ gem 'simple_form'
 gem 'haml'
 
 gem 'devise'
+
+gem "pundit"

@@ -1,8 +1,6 @@
-class Account::Admin::UserController < ApplicationController
-  before_action :authenticate_user!
-  layout "application-admin"
-
+class Account::Admin::UserController < Account::Admin::AdminApplicationController
   def index
     @users = User.all
+    authorize([:account, :admin, @users])
   end
 end

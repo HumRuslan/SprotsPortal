@@ -6,7 +6,7 @@
       %div(class="col-md-12 text-right")
         %span(class="pr-2 text-secondary") Don't have an account?
         = link_to 'Get Started', new_user_registration_path, class: "btn border-danger text-danger b-0 w-25"
-      %h2(class="text-center m-5 p-5" ) Log in to Sports Hub
+      %h2(class="text-center m-5 p-5 w-100" ) Log in to Sports Hub
       %div(class="col-md-12")
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           .form-inputs

@@ -1,6 +1,5 @@
 class Account::Admin::UserController < Account::Admin::AdminApplicationController
-  before_action :find_user, only: %i[blocked activated]
-
+  before_action :find_user, only: %i[blocked activated add_admin remove_admin]
   def index
     @users = User.user.confirmed
     @admins = User.admin
@@ -14,6 +13,16 @@ class Account::Admin::UserController < Account::Admin::AdminApplicationControlle
 
   def activated
     @user.unlock_access!
+    redirect_to account_admin_user_index_url
+  end
+
+  def add_admin
+    @user.admin!
+    redirect_to account_admin_user_index_url
+  end
+
+  def remove_admin
+    @user.user!
     redirect_to account_admin_user_index_url
   end
 

@@ -1,9 +1,8 @@
 -provide(:page, 'users')
--provide(:subpage, 'users')
 %div(class="row" )
   %div(class="col-md-8")
     =render "account/admin/user/_part/sub_menu"
-    %table(class="table")
+    %table{:class => "table", :id => "users_table"}
       %thead(class="table-secondary")
         %tr(class="text-center" )
           %th{ scope: "col", class: "w-50"} Name
@@ -16,6 +15,29 @@
             %td= !user.access_locked? ? raw("<span class='text-success'>Active</span>") : "Blocked"
             %td(class="text-center")
               -if !user.access_locked?
-                =link_to "Block", blocked_account_admin_user_path(id: user.id), method: :put, :class => "btn btn-secondary w-75 btn-sm"
+                %div(class="dropdown")
+                  %a{:class => "btn btn-secondary dropdown-toggle btn-sm w-100",
+                      :type => "button btn-sm",
+                      :id => "dropdownMenuButton",
+                      "data-toggle" => "dropdown",
+                      :aria-expanded => "false"} Actions
+                  %div(class="dropdown-menu p-0 w-100" aria-labelledby="dropdownMenuButton")
+                    =link_to "Block", blocked_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-secondary text-white"
+                    =link_to "Make as Admin", add_admin_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-success text-white"
               -else
-                =link_to "Activate", activated_account_admin_user_path(id: user.id), method: :put, :class => "btn btn-success w-75 btn-sm"
+                =link_to "Activate", activated_account_admin_user_path(id: user.id), method: :put, :class => "btn btn-success w-100 btn-sm"
+
+    %table{:class => "table", :id => "admins_table"}
+      %thead(class="table-secondary")
+        %tr(class="text-center" )
+          %th{ scope: "col", class: "w-50"} ADMIN
+          %th(scope="col") Status
+          %th(scope="col") Actions
+      %tbody
+        - @admins.each do |admin|
+          %tr(scope="row")
+            %td= admin.full_name
+            %td
+              %span(class='text-success') Active
+            %td(class="text-center")
+              =link_to "Remove from Admin", remove_admin_account_admin_user_path(id: admin.id), method: :put, :class => "btn btn-danger w-100 btn-sm"

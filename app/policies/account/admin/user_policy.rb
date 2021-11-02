@@ -17,4 +17,12 @@ class Account::Admin::UserPolicy
   def activated?
     @current_user.admin?
   end
+
+  def add_admin?
+    @current_user.admin?
+  end
+
+  def remove_admin?
+    @current_user.admin?
+  end
 end

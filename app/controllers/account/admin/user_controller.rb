@@ -2,8 +2,8 @@ class Account::Admin::UserController < Account::Admin::AdminApplicationControlle
   before_action :find_user, only: %i[blocked activated]
 
   def users
-    @users = User.where.not(role: "admin").confirmed
-    @admins = User.where(role: "admin")
+    @users = User.user.confirmed
+    @admins = User.admin
     authorize([:account, :admin, @users])
   end
 

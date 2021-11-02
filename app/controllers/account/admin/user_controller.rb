@@ -1,7 +1,7 @@
 class Account::Admin::UserController < Account::Admin::AdminApplicationController
   before_action :find_user, only: %i[blocked activated]
 
-  def users
+  def index
     @users = User.user.confirmed
     @admins = User.admin
     authorize([:account, :admin, @users])

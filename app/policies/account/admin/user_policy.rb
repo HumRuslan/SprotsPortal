@@ -6,7 +6,7 @@ class Account::Admin::UserPolicy
     @user = model
   end
 
-  def users?
+  def index?
     @current_user.admin?
   end
 

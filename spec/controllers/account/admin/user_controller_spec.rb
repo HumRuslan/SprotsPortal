@@ -10,8 +10,8 @@ RSpec.describe Account::Admin::UserController, type: :controller do
     end
 
     it 'has get users' do
-      get :users
-      expect(response).to render_template("users")
+      get :index
+      expect(response).to render_template("index")
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Account::Admin::UserController, type: :controller do
     end
 
     it 'has not redirect to users' do
-      get :users
+      get :index
       expect(response).to redirect_to(new_user_session_path)
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe Account::Admin::UserController, type: :controller do
     login_user
 
     it 'has not redirect to users admin page' do
-      get :users
+      get :index
       expect(response).to have_http_status(:unauthorized)
     end
   end

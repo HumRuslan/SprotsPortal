@@ -7,7 +7,7 @@ RSpec.describe "routes for root", type: :routing do
     end
 
     it "root route to the user with role admin" do
-      expect(get("/account/admin/")).to route_to("account/admin/user#users")
+      expect(get("/account/admin/")).to route_to("account/admin/user#index")
     end
   end
 end

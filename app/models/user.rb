@@ -12,6 +12,12 @@ class User < ApplicationRecord
   validates :last_name, length: { minimum: 2 }, presence: true
   before_create :set_default_role
 
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   private
 
   def set_default_role

@@ -40,12 +40,12 @@ RSpec.describe Account::Admin::UserController, type: :controller do
     login_admin
     it 'has user is locked' do
       put :blocked, params: { user_id: user.id }
-      expect(User.find_by(id: user.id).locked_at?).to be true
+      expect(User.find_by(id: user.id).access_locked?).to be true
     end
 
     it 'has user is activated' do
       put :activated, params: { user_id: subject.current_user.id }
-      expect(User.find_by(id: user.id).locked_at?).to be false
+      expect(User.find_by(id: user.id).access_locked?).to be false
     end
   end
 end

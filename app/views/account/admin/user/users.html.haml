@@ -12,10 +12,10 @@
       %tbody
         - @users.each do |user|
           %tr(scope="row")
-            %td= user.first_name + " " + user.last_name
-            %td= user.locked_at == nil ? raw("<span class='text-success'>Active</span>") : "Blocked"
+            %td= user.full_name
+            %td= !user.access_locked? ? raw("<span class='text-success'>Active</span>") : "Blocked"
             %td(class="text-center")
-              -if user.locked_at == nil
+              -if !user.access_locked?
                 =link_to "Block", account_admin_blocked_path(user_id: user.id), method: :put, :class => "btn btn-secondary w-75 btn-sm"
               -else
                 =link_to "Activate", account_admin_activated_path(user_id: user.id), method: :put, :class => "btn btn-success w-75 btn-sm"

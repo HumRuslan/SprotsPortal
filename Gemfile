@@ -73,6 +73,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Add Boostrap and sass
 gem 'bootstrap', '~> 4.6.0'
 gem 'bootstrap-sass', '~> 2.3.2.2'
+gem "font-awesome-rails"
 gem 'sassc-rails', '~> 2.1.2'
 
 # Add Simple Form

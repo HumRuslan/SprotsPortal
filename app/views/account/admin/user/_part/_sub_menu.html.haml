@@ -1,0 +1,5 @@
+-if yield(:subpage)=="users"
+  %h6(class="mr-5 mt-3 d-inline")
+    =link_to "USERS(#{@users.size})", account_admin_root_path, :class => "text-danger"
+  %h6(class="mr-5 mt-3 d-inline")
+    =link_to "ADMINS(#{@admins.size})", account_admin_root_path, :class => "text-muted"

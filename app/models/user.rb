@@ -4,12 +4,19 @@ class User < ApplicationRecord
          :recoverable,
          :rememberable,
          :confirmable,
-         :validatable
+         :validatable,
+         :lockable
   enum role: { user: 0, admin: 1 }
 
   validates :first_name, length: { minimum: 2 }, presence: true
   validates :last_name, length: { minimum: 2 }, presence: true
   before_create :set_default_role
+
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   private
 

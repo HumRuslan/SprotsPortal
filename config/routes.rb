@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   namespace :account do
     namespace :admin do
       root "user#index"
+      resources :user do
+        member do
+          put "blocked"
+          put "activated"
+        end
+      end
     end
   end
 end

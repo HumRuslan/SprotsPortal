@@ -39,12 +39,12 @@ RSpec.describe Account::Admin::UserController, type: :controller do
   describe "when admin locked and unlocked user" do
     login_admin
     it 'has user is locked' do
-      put :blocked, params: { user_id: user.id }
+      put :blocked, params: { id: user.id }
       expect(User.find_by(id: user.id).access_locked?).to be true
     end
 
     it 'has user is activated' do
-      put :activated, params: { user_id: subject.current_user.id }
+      put :activated, params: { id: subject.current_user.id }
       expect(User.find_by(id: user.id).access_locked?).to be false
     end
   end

@@ -9,12 +9,12 @@ class Account::Admin::UserController < Account::Admin::AdminApplicationControlle
 
   def blocked
     @user.lock_access!(send_instructions: false)
-    redirect_to account_admin_users_url
+    redirect_to account_admin_index_url
   end
 
   def activated
     @user.unlock_access!
-    redirect_to account_admin_users_url
+    redirect_to account_admin_index_url
   end
 
   private

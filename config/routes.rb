@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   namespace :account do
     namespace :admin do
       root "user#index"
-      get "/users/", to: 'user#index'
+      get "/index/", to: 'user#index'
       put "/blocked/", to: 'user#blocked'
       put "/activated/", to: 'user#activated'
     end

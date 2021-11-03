@@ -15,6 +15,8 @@ Rails.application.routes.draw do
         member do
           put "blocked"
           put "activated"
+          put "add-admin"
+          put "remove-admin"
         end
       end
     end

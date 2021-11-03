@@ -48,4 +48,17 @@ RSpec.describe Account::Admin::UserController, type: :controller do
       expect(User.find_by(id: user.id).access_locked?).to be false
     end
   end
+
+  describe "when admin grant and remove admin role" do
+    login_admin
+    it 'has user is granted admin role' do
+      put :add_admin, params: { id: user.id }
+      expect(User.find_by(id: user.id).admin?).to be true
+    end
+
+    it 'has user is removed admin role' do
+      put :remove_admin, params: { id: subject.current_user.id }
+      expect(User.find_by(id: user.id).admin?).to be false
+    end
+  end
 end

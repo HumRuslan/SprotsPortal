@@ -1,5 +1,70 @@
--if yield(:subpage)=="users"
-  %h6(class="mr-5 mt-3 d-inline")
-    =link_to "USERS(#{@users.size})", account_admin_root_path, :class => "text-danger"
-  %h6(class="mr-5 mt-3 d-inline")
-    =link_to "ADMINS(#{@admins.size})", account_admin_root_path, :class => "text-muted"
+%h6{:class => "mr-5 mt-3 d-inline"}
+  =link_to "USERS(#{@users.size})", account_admin_root_path, :id => 'users_link'
+%h6{:class => "mr-5 mt-3 d-inline"}
+  =link_to "ADMINS(#{@admins.size})", account_admin_root_path, :id => 'admins_link'
+
+:javascript
+  function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }
+
+  function setCookie(name, value, options = {}) {
+    options = {
+      path: '/',
+    };
+    if (options.expires instanceof Date) {
+      options.expires = options.expires.toUTCString();
+    }
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+    for (let optionKey in options) {
+      updatedCookie += "; " + optionKey;
+      let optionValue = options[optionKey];
+      if (optionValue !== true) {
+        updatedCookie += "=" + optionValue;
+      }
+    }
+    document.cookie = updatedCookie;
+  }
+
+  $(function() {
+    if (getCookie('sub_page') == 'users' || getCookie('sub_page') == undefined) {
+      $('#users_link').addClass('text-danger');
+      $('#admins_link').addClass('text-secondary');
+      setCookie('sub_page', 'users', {secure: true, 'max-age': 3600});
+      $('#admins_table').hide();
+      $('#users_table').show();
+    } else {
+      $('#users_link').addClass('text-secondary');
+      $('#admins_link').addClass('text-danger');
+      setCookie('sub_page', 'admins', {secure: true, 'max-age': 3600});
+      $('#admins_table').show();
+      $('#users_table').hide();
+    }
+  })
+
+  $("#admins_link").click(function (){
+    if (getCookie('sub_page') != 'admins') {
+      $('#users_link').removeClass('text-danger');
+      $('#users_link').addClass('text-secondary');
+      $('#admins_link').removeClass('text-secondary');
+      $('#admins_link').addClass('text-danger');
+      $('#admins_table').show();
+      $('#users_table').hide();
+      setCookie('sub_page', 'admins', {secure: true, 'max-age': 3600});
+    }
+  })
+
+  $("#users_link").click(function (){
+    if (getCookie('sub_page') != 'users') {
+      $('#admins_link').removeClass('text-danger');
+      $('#admins_link').addClass('text-secondary');
+      $('#users_link').removeClass('text-secondary');
+      $('#users_link').addClass('text-danger');
+      $('#admins_table').hide();
+      $('#users_table').show();
+      setCookie('sub_page', 'users', {secure: true, 'max-age': 3600});
+    }
+  })

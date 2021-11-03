@@ -29,8 +29,17 @@
                   %div(class="dropdown-menu p-0 w-100" aria-labelledby="dropdownMenuButton")
                     =link_to "Block", blocked_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-secondary text-white"
                     =link_to "Make as Admin", add_admin_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-success text-white"
+                    =link_to "Delete", account_admin_user_path(id: user.id), method: :delete, :class => "dropdown-item bg-danger text-white"
               -else
-                =link_to "Activate", activated_account_admin_user_path(id: user.id), method: :put, :class => "btn btn-success w-100 btn-sm"
+                %div(class="dropdown")
+                  %a{:class => "btn btn-secondary dropdown-toggle btn-sm w-100",
+                      :type => "button btn-sm",
+                      :id => "dropdownMenuButton",
+                      "data-toggle" => "dropdown",
+                      :aria-expanded => "false"} Actions
+                  %div(class="dropdown-menu p-0 w-100" aria-labelledby="dropdownMenuButton")
+                    =link_to "Activate", activated_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-success text-white"
+                    =link_to "Delete", account_admin_user_path(id: user.id), method: :delete, :class => "dropdown-item bg-danger text-white"
 
     %table{:class => "table", :id => "admins_table"}
       %thead(class="table-secondary")

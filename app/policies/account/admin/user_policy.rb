@@ -10,6 +10,10 @@ class Account::Admin::UserPolicy
     @current_user.admin?
   end
 
+  def destroy?
+    @current_user.admin?
+  end
+
   def blocked?
     @current_user.admin?
   end

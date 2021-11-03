@@ -1,8 +1,9 @@
 class Account::Admin::UserController < Account::Admin::AdminApplicationController
   before_action :find_user, only: %i[blocked activated add_admin remove_admin]
   def index
-    @users = User.user.confirmed
-    @admins = User.admin
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: false).user.confirmed
+    @admins = @q.result(distinct: false).admin
     authorize([:account, :admin, @users])
   end
 

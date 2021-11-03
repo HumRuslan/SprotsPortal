@@ -217,6 +217,10 @@ GEM
       thor (~> 1.0)
     rainbow (3.0.0)
     rake (13.0.6)
+    ransack (2.4.2)
+      activerecord (>= 5.2.4)
+      activesupport (>= 5.2.4)
+      i18n
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -361,6 +365,7 @@ DEPENDENCIES
   rails (~> 6.1.4, >= 6.1.4.1)
   rails-controller-testing
   rails_best_practices
+  ransack
   rspec-rails
   rubocop (~> 1.22)
   rubocop-rails

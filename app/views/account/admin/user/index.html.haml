@@ -2,11 +2,16 @@
 %div(class="row" )
   %div(class="col-md-8")
     =render "account/admin/user/_part/sub_menu"
+    %div(class="col-md-12 text-right m-1" )
+      =search_form_for @q, url: account_admin_user_index_path do |f|
+        \#{f.search_field :user_cont}
+        %button{:class => "btn btn-default", :type => "submit"}
+          %i(class="bi bi-search")
     %table{:class => "table", :id => "users_table"}
       %thead(class="table-secondary")
         %tr(class="text-center" )
-          %th{ scope: "col", class: "w-50"} Name
-          %th(scope="col") Status
+          %th{ scope: "col", class: "w-50"}=sort_link(@q, :first_name, %i(first_name last_name), 'Name')
+          %th(scope="col")=sort_link(@q, :locked_at,'Status')
           %th(scope="col") Actions
       %tbody
         - @users.each do |user|

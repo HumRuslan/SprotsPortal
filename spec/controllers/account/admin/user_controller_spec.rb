@@ -61,4 +61,12 @@ RSpec.describe Account::Admin::UserController, type: :controller do
       expect(User.find_by(id: user.id).admin?).to be false
     end
   end
+
+  describe "when admin delete user" do
+    login_admin
+    it 'has user is deleted' do
+      delete :destroy, params: { id: user.id }
+      expect(User.find_by(id: user.id)).to eq(nil)
+    end
+  end
 end

@@ -85,4 +85,8 @@ gem 'haml'
 
 gem 'devise'
 gem 'pundit'
-gem 'ransack'
+
+gem 'ckeditor'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'

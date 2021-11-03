@@ -35,6 +35,9 @@
         %div(class="col-md-10 offset-md-1" )
           %h1=yield(:page).titleize
       %div(class="row")
+        %div(class="col-md-12")
+          =render "layouts/_part/admin_top_menu"
+      %div(class="row")
         %div(class="col-md-1")
           =render "layouts/_part/admin_menu"
         %div(class="col-md-9 offset-md-1")

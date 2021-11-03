@@ -85,3 +85,4 @@ gem 'haml'
 
 gem 'devise'
 gem 'pundit'
+gem 'ransack'

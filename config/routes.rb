@@ -18,6 +18,9 @@ Rails.application.routes.draw do
           put "add-admin"
           put "remove-admin"
         end
+        collection do
+          match 'search' => 'user#search', via: %i[get post], as: :search
+        end
       end
     end
   end

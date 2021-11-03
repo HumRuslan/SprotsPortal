@@ -61,4 +61,12 @@ RSpec.describe Account::Admin::UserController, type: :controller do
       expect(User.find_by(id: user.id).admin?).to be false
     end
   end
+
+  describe 'when search user' do
+    login_admin
+    it 'has search result' do
+      post :search, params: { q: { user_cont: user.first_name } }
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end

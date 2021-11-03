@@ -1,7 +1,7 @@
 %h6{:class => "mr-5 mt-3 d-inline"}
-  =link_to "USERS(#{@users.size})", account_admin_root_path, :id => 'users_link'
+  %a{:id => 'users_link', :href => "#"} USERS(#{@users.size})
 %h6{:class => "mr-5 mt-3 d-inline"}
-  =link_to "ADMINS(#{@admins.size})", account_admin_root_path, :id => 'admins_link'
+  %a{:id => 'admins_link', :href => "#"} ADMINS(#{@admins.size})
 
 :javascript
   function getCookie(name) {
@@ -45,7 +45,8 @@
     }
   })
 
-  $("#admins_link").click(function (){
+  $("#admins_link").click(function (event){
+    event.preventDefault();
     if (getCookie('sub_page') != 'admins') {
       $('#users_link').removeClass('text-danger');
       $('#users_link').addClass('text-secondary');
@@ -57,7 +58,8 @@
     }
   })
 
-  $("#users_link").click(function (){
+  $("#users_link").click(function (event){
+    event.preventDefault();
     if (getCookie('sub_page') != 'users') {
       $('#admins_link').removeClass('text-danger');
       $('#admins_link').addClass('text-secondary');

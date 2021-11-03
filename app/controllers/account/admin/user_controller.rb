@@ -27,11 +27,6 @@ class Account::Admin::UserController < Account::Admin::AdminApplicationControlle
     redirect_to account_admin_user_index_url
   end
 
-  def search
-    index
-    render :index
-  end
-
   private
 
   def find_user

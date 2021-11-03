@@ -4,7 +4,7 @@
     =render "account/admin/user/_part/sub_menu"
     %div{:id => "users_table"}
       %div(class="col-md-12 text-right m-1" )
-        =search_form_for @q, url: search_account_admin_user_index_path, html: { method: :post } do |f|
+        =search_form_for @q, url: account_admin_user_index_path do |f|
           \#{f.search_field :user_cont}
           %button{:class => "btn btn-default", :type => "submit"}
             %i(class="bi bi-search")

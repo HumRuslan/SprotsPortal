@@ -25,8 +25,4 @@ class Account::Admin::UserPolicy
   def remove_admin?
     @current_user.admin?
   end
-
-  def search?
-    @current_user.admin?
-  end
 end

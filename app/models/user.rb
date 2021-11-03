@@ -13,7 +13,9 @@ class User < ApplicationRecord
   before_create :set_default_role
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+
   ransack_alias :user, :first_name_or_last_name
+
   def full_name
     "#{first_name} #{last_name}"
   end

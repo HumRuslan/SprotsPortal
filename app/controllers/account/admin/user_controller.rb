@@ -3,7 +3,7 @@ class Account::Admin::UserController < Account::Admin::AdminApplicationControlle
   def index
     @q = User.ransack(params[:q])
     @users = @q.result(distinct: false).user.confirmed
-    @admins = User.admin
+    @admins = @q.result(distinct: false).admin
     authorize([:account, :admin, @users])
   end
 

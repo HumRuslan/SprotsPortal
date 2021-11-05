@@ -79,14 +79,14 @@ gem 'sassc-rails', '~> 2.1.2'
 
 # Add Simple Form
 gem 'simple_form'
+gem 'simple_form_fancy_uploads'
 
 # Add Haml
 gem 'haml'
 
-gem 'devise'
-gem 'pundit'
-
-gem 'ckeditor'
 gem 'carrierwave'
+gem 'ckeditor'
+gem 'devise'
 gem 'mini_magick'
-gem 'fog'
+gem 'pundit'
+gem 'ransack'

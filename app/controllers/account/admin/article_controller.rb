@@ -11,11 +11,10 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
 
   def create
     @article = Article.new(article_params)
+    authorize([:account, :admin, @article])
     if @article.save
-      authorize([:account, :admin, @article])
       redirect_to account_admin_article_index_path
     else
-      skip_authorization
       render "new"
     end
   end

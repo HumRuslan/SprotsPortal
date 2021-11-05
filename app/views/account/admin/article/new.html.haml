@@ -19,10 +19,12 @@
     = f.input :headline, class: "form-control center", label: 'ARTICLE HEADLINE'
     = f.input :caption, class: "form-control center", label: 'CAPTION'
     = f.input :content, :as => :ckeditor, input_html: {:ckeditor => {:toolbar => 'FULL'}}, class: "form-control left", label: 'CONTENT'
+    %div(class="d-none" )
+      = f.input :comment, :id => 'article_comment'
     .custom-control.custom-switch
-      %input#customSwitch1.custom-control-input{:type => "checkbox", :name => "comment"}
-
+      %input#customSwitch1.custom-control-input{:type => "checkbox"}
       %label.custom-control-label{:for => "customSwitch1"} Comments
+
 
 :javascript
   function readURL(input) {
@@ -34,8 +36,24 @@
         $('#img_prev')
           .attr('src', e.target.result)
       };
-
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+  $("#customSwitch1").change(function (){
+    if($("#customSwitch1").val() != 'true') {
+      $("#customSwitch1").val('true')
+    } else {
+      $("#customSwitch1").val('false')
+    }
+  })
+
+  $('#new_article').submit(function() {
+    if ($("#customSwitch1").val() == 'true') {
+      $("#article_comment").val('1')
+    } else {
+      $("#article_comment").val('0')
+    }
+    return true;
+  });
 

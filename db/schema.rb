@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_074938) do
     t.string "alt_picture"
     t.string "caption"
     t.text "content"
-    t.boolean "comment"
-    t.integer "published", limit: 1
+    t.integer "comment", limit: 1, default: 0
+    t.integer "published", limit: 1, default: 0
     t.string "picture"
     t.index ["headline"], name: "index_articles_on_headline"
   end

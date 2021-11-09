@@ -1,0 +1,27 @@
+.row
+  .col-md-4
+  .col-md-8
+    -if @articles.size != 0
+      #carouselExampleIndicators.carousel.slide{"data-ride" => "carousel"}
+        %ol.carousel-indicators
+          -@articles.size.times do |index|
+            %li{"data-slide-to" => "#{index}", "data-target" => "#carouselExampleIndicators", :class => "#{index == 0 ? 'active' : ''}"}
+        .carousel-inner
+          -@articles.each_with_index do |article, index|
+            %div{:class => "carousel-item #{index == 0 ? 'active' : ''}"}
+              %div{:class => "bg-white position-absolute p-0 m-0", :style => "height: 70%; z-index: 1; right: 10%; width: 40%; top: 50%; transform: translateY(-50%)"}
+                .col-md-12.p-3
+                  %p{:style => "color: gray"}
+                    Published /
+                    = human_timestamps article.updated_at
+                  %h6(class="text-danger")
+                    = article.headline
+                  %h4(class="text-dark")
+                    = article.caption
+                %div{:class => "col-md-6 w-100 h-25 position-absolute bg-danger", :style => "top: 75%"}
+                  =link_to raw("<b>More</b>"), account_user_article_path(id: article.id), :class => "btn h-100 w-100 p-4 text-white"
+              %img.d-block.h-100{:alt => "...", :src => article.picture.url}
+        %button{"data-slide" => "prev", "data-target" => "#carouselExampleIndicators", :type => "button", :class => "carousel-control-prev", :style => "border: none; background: none"}
+          %i{ :class => "bi bi-arrow-left-circle", :style => "font-size: 2rem; color: white;"}
+        %button{"data-slide" => "next", "data-target" => "#carouselExampleIndicators", :type => "button", :class => "carousel-control-next", :style => "border: none; background: none;"}
+          %i{ :class => "bi bi-arrow-right-circle", :style => "font-size: 2rem; color: black;"}

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   devise_scope :user do
-    root "auth/sessions#new"
+    root "account/user/home#index"
   end
 
   devise_for :users, controllers: {
@@ -22,6 +22,11 @@ Rails.application.routes.draw do
         end
       end
       resources :article
+    end
+
+    namespace :user do
+      root "home#index"
+      resources :article, controller: :home, only: %i[index show]
     end
   end
 end

@@ -11,10 +11,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(*)
+    flash.clear
     if current_user.admin?
       account_admin_root_path
-    elsif current_user.user?
-      root_path
+    else
+      account_user_root_path
     end
   end
 

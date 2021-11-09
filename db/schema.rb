@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_04_074938) do
+ActiveRecord::Schema.define(version: 2021_11_09_081126) do
 
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "headline"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_074938) do
     t.integer "comment", limit: 1, default: 0
     t.integer "published", limit: 1, default: 0
     t.string "picture"
+    t.datetime "created_at", precision: 6, default: "2021-11-09 08:39:50", null: false
+    t.datetime "updated_at", precision: 6, default: "2021-11-09 08:39:50", null: false
     t.index ["headline"], name: "index_articles_on_headline"
   end
 

@@ -1,0 +1,16 @@
+.row
+  .col-md-12.text-right
+    =link_to "Back", account_user_article_index_path, :class => "btn btn-danger w-25"
+  .col-md-12.text-center
+    %h1= @article.headline
+  .col-md-12
+    %img.d-block.h-100.m-auto{:alt => "...", :src => @article.picture.url}
+  .col-md-12.text-center.m-2.text-secondary
+    %h4= @article.caption
+  .col-md-12.text-right.text-secondary
+    %h6
+      Published /
+      = human_timestamps @article.updated_at
+  .col-md-12.p-5
+    = raw(@article.content)
+

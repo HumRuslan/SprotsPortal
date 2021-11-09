@@ -29,7 +29,7 @@ RSpec.describe Auth::SessionsController, type: :controller do
       post :create, params: { user: { email: subject.current_user.email,
                                       password: subject.current_user.password } }
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(account_user_root_path)
     end
   end
 end

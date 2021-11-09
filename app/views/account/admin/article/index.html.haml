@@ -1,0 +1,4 @@
+-provide(:page, 'article')
+%div(class="row")
+  %div(class="col-md-12 text-right")
+    =link_to raw("<i class='bi bi-plus'></i> New article"), new_account_admin_article_path, :class => "btn btn-danger w-25"

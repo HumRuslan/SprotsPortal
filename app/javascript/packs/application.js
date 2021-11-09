@@ -10,7 +10,9 @@ import "channels"
 
 require('jquery')
 require('bootstrap')
+// require('ckeditor/config')
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+

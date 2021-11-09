@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+
   devise_scope :user do
     root "auth/sessions#new"
   end
@@ -10,8 +12,8 @@ Rails.application.routes.draw do
 
   namespace :account do
     namespace :admin do
-      root "user#index"
-      resources :user do
+      root "home#index"
+      resources :user, only: %i[index destroy] do
         member do
           put "blocked"
           put "activated"
@@ -19,6 +21,7 @@ Rails.application.routes.draw do
           put "remove-admin"
         end
       end
+      resources :article
     end
   end
 end

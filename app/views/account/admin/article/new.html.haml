@@ -1,0 +1,59 @@
+-provide(:page, 'article')
+.wellington.center.news-form.m-5
+  = simple_form_for(@article, as: :article, method: :post, url: account_admin_article_index_path, html: { multipart: true }) do |f|
+    = f.error_notification
+    =render "layouts/_part/error_messages", resource: @article
+
+    .col-md-12.text-right
+      = f.submit "SAVE", class: "btn btn-danger w-25"
+      =link_to "Cancel", account_admin_article_index_path, :class => "btn btn-light w-25"
+    = f.label :picture
+    .row{:style => "height: 500px;"}
+      .col-md-12.h-100
+        %img{:id => "img_prev", :class => "h-100 w-100", :style => "z-index: 0; object-fit: contain;"}
+        %h1{ :class => "custom-file rounded-circle bg-danger text-center text-white d-inline p-2 position-absolute", :style => "top: 50%; z-index: 1; left: 50%; width: 65px; height: 65px; transform: translate(-50%, -50%)"}
+          = f.file_field :picture, id: "inputGroupFile04", "aria-describedby" => "inputGroupFileAddon01", :class => "custom-file-input w-0 position-absolute", "aria-describedby" => "inputGroupFileAddon04", :type => "file", :onchange => "readURL(this)", :accept => "image/*"
+          %i(class="bi bi-camera-fill w-100 h-100")
+    %br
+    = f.input :alt_picture, class: "form-control center w-100", label: 'ALT'
+    = f.input :headline, class: "form-control center", label: 'ARTICLE HEADLINE'
+    = f.input :caption, class: "form-control center", label: 'CAPTION'
+    = f.input :content, :as => :ckeditor, input_html: {:ckeditor => {:toolbar => 'FULL'}}, class: "form-control left", label: 'CONTENT'
+    %div(class="d-none" )
+      = f.input :comment, :id => 'article_comment'
+    .custom-control.custom-switch
+      %input#customSwitch1.custom-control-input{:type => "checkbox"}
+      %label.custom-control-label{:for => "customSwitch1"} Comments
+
+
+:javascript
+  function readURL(input) {
+    console.log(input.files);
+    console.log(input.files[0]);
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#img_prev')
+          .attr('src', e.target.result)
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#customSwitch1").change(function (){
+    if($("#customSwitch1").val() != 'true') {
+      $("#customSwitch1").val('true')
+    } else {
+      $("#customSwitch1").val('false')
+    }
+  })
+
+  $('#new_article').submit(function() {
+    if ($("#customSwitch1").val() == 'true') {
+      $("#article_comment").val('1')
+    } else {
+      $("#article_comment").val('0')
+    }
+    return true;
+  });
+

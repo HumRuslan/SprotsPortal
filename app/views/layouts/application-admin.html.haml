@@ -8,6 +8,7 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag Ckeditor.cdn_url
   %body
     %div(class="container-fluid p-0")
       %nav.navbar.navbar-expand-lg.navbar-light.bg-light{class: "p-0 mb-3"}
@@ -34,6 +35,9 @@
       %div(class="row")
         %div(class="col-md-10 offset-md-1" )
           %h1=yield(:page).titleize
+      %div(class="row")
+        %div(class="col-md-12")
+          =render "layouts/_part/admin_top_menu"
       %div(class="row")
         %div(class="col-md-1")
           =render "layouts/_part/admin_menu"

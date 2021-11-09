@@ -2,3 +2,41 @@
 %div(class="row")
   %div(class="col-md-12 text-right")
     =link_to raw("<i class='bi bi-plus'></i> New article"), new_account_admin_article_path, :class => "btn btn-danger w-25"
+.row
+  %div(class="col-md-12 text-right m-3" )
+    =search_form_for @q, url: account_admin_article_index_path do |f|
+      %div(class="col-md-12 text-right")
+        %button{:class => "btn btn-default", :type => "submit"}
+          %i(class="bi bi-search")
+      %div(class="col-md-4 offset-md-8" )
+        .field= f.select :published_eq, options_for_select([["All", ""], ["unpublished","0"], ["published", "1"]], @q.published_eq), {}, {:class => "w-75"}
+- @articles.each do |article|
+  .row.p-3
+    .col-md-12.text-right
+      %div(class="dropdown")
+        %a{:class => "text-danger btn",
+                      :type => "button btn-sm",
+                      :id => "dropdownMenuButton",
+                      "data-toggle" => "dropdown",
+                      :style => "font-size: 2rem; wight: bolder",
+                      :aria-expanded => "false"} ...
+        %div(class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton")
+          - if article.published?
+            %p unpublished
+          - else
+            %p published
+          %p delete
+    .col-md-4
+      %img{style: "height: 200px; object-fit: contain;", :src => article.picture.thumb.url}
+    .col-md-8
+      %h3= article.headline
+      %p
+        =article_short_content strip_tags(article.content), 50
+        =link_to 'More ...', account_admin_article_path(id: article.id), :class => "font-italic"
+      .row
+        .col-md-4.offset-md-8
+          %div{:class => "rounded-circle m-1 float-md-left #{article.published? ? 'bg-success' : 'bg-danger'}", :style => "width: 10px; height: 10px"}
+          - if article.published?
+            published
+          - else
+            unpublished

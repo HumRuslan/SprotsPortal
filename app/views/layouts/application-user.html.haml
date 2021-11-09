@@ -10,30 +10,16 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     %div(class="container-fluid")
+      =render "layouts/_part/application_menu"
       - if alert
         %div(class="row" )
           %p(class="alert alert-danger col-md-12 text-center" role="alert")=alert
       - if notice
         %div(class="row" )
           %p(class="alert alert-info col-md-12 text-center" role="alert")=notice
-      %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        %a.navbar-brand{:href => "#"} Navbar
-        %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-          %span.navbar-toggler-icon
-        #navbarSupportedContent.collapse.navbar-collapse
-          %ul.navbar-nav.mr-auto
-          %div
-            - if user_signed_in?
-              %span= current_user.email
-              = link_to 'Log out', destroy_user_session_path, :method => :delete
-            - else
-              = link_to 'Sign in', new_user_session_path
-              |
-              = link_to 'Sign up', new_user_registration_path
-
       = yield
 
-      %nav(class="fixed-bottom bg-danger text-white")
+      %nav(class="fixed-bottom bg-danger text-white mx-2")
         %div(class="footer-copyright text-center p-3 float-left")
           %h4 Sports Hub
         %div(class="footer-copyright p-3 float-right")© 2020 Copyright Sports hub <br> Privace / Terms

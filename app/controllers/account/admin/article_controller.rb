@@ -1,6 +1,7 @@
 class Account::Admin::ArticleController < Account::Admin::AdminApplicationController
   def index
-    @articles = Article.all
+    @q = Article.ransack(params[:q])
+    @articles = @q.result(distinct: false)
     authorize([:account, :admin, @articles])
   end
 

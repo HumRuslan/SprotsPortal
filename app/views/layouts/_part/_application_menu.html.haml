@@ -1,0 +1,14 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.p-0
+  %div(class="h-100 bg-danger p-2 text-white")
+    %h2(class="m-3 px-3" ) Sports Hub
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+  %div{:style => "border-left: 1px solid #e1e4e8; height: 100%;", :class => "p-1"}
+    - if user_signed_in?
+      %span= current_user.email
+      = link_to 'Log out', destroy_user_session_path, :method => :delete, :class => "btn btn-small text-danger"
+    - else
+      = link_to 'Sign in', new_user_session_path, :class => "btn btn-small text-danger"
+      = link_to 'Sign up', new_user_registration_path, :class => "btn btn-small text-danger"

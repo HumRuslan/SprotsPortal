@@ -17,4 +17,16 @@ class Account::Admin::ArticlePolicy
   def create?
     @current_user.admin?
   end
+
+  def destroy?
+    @current_user.admin?
+  end
+
+  def published?
+    @current_user.admin?
+  end
+
+  def unpublished?
+    @current_user.admin?
+  end
 end

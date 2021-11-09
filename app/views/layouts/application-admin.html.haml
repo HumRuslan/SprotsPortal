@@ -10,22 +10,8 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag Ckeditor.cdn_url
   %body
-    %div(class="container-fluid p-0")
-      %nav.navbar.navbar-expand-lg.navbar-light.bg-light{class: "p-0 mb-3"}
-        %div(class="h-100 bg-danger p-2 text-white")
-          %h2(class="m-3 px-3" ) Sports Hub
-        %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-          %span.navbar-toggler-icon
-        #navbarSupportedContent.collapse.navbar-collapse
-          %ul.navbar-nav.mr-auto
-          %div
-            - if user_signed_in?
-              %span= current_user.email
-              = link_to 'Log out', destroy_user_session_path, :method => :delete
-            - else
-              = link_to 'Sign in', new_user_session_path
-              |
-              = link_to 'Sign up', new_user_registration_path
+    %div(class="container-fluid")
+      =render "layouts/_part/application_menu"
       - if alert
         %div(class="row" )
           %p(class="alert alert-danger col-md-12 text-center" role="alert")=alert

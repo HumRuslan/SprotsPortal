@@ -11,7 +11,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{Time.zone.today.strftime('%Y-%m')}/"
+    "uploads/#{model.class.to_s.underscore}/#{model.id}/"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -31,7 +31,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process resize_to_fit: [200, 100]
+    process resize_to_fit: [400, 200]
   end
 
   # Add an allowlist of extensions which are allowed to be uploaded.
@@ -43,6 +43,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{Digest::MD5.hexdigest DateTime.now.strftime('%Q')}.#{file.extension}"
+    "#{Digest::MD5.hexdigest DateTime.now.strftime('%s')}.#{file.extension}"
   end
 end

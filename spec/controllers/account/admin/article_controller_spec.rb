@@ -58,6 +58,13 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       put :unpublished, params: { id: article_create.id }
       expect(Article.find_by(id: article_create.id).unpublished?).to be true
     end
+
+    it 'has article not found' do
+      put :published, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
+      put :unpublished, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe "when admin delete article" do
@@ -65,6 +72,11 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     it "has article is deleted" do
       delete :destroy, params: { id: article_create.id }
       expect(Article.find_by(id: article_create.id)).to eq(nil)
+    end
+
+    it 'has article not found' do
+      delete :destroy, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

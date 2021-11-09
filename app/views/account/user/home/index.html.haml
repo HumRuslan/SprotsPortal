@@ -20,7 +20,7 @@
                     = article.caption
                 %div{:class => "col-md-6 w-100 h-25 position-absolute bg-danger", :style => "top: 75%"}
                   =link_to raw("<b>More</b>"), account_user_article_path(id: article.id), :class => "btn h-100 w-100 p-4 text-white"
-              %img.d-block.h-100{:alt => "...", :src => article.picture.url}
+              %img.d-block.h-100{:alt => article.alt_picture, :src => article.picture.url}
         %button{"data-slide" => "prev", "data-target" => "#carouselExampleIndicators", :type => "button", :class => "carousel-control-prev", :style => "border: none; background: none"}
           %i{ :class => "bi bi-arrow-left-circle", :style => "font-size: 2rem; color: white;"}
         %button{"data-slide" => "next", "data-target" => "#carouselExampleIndicators", :type => "button", :class => "carousel-control-next", :style => "border: none; background: none;"}

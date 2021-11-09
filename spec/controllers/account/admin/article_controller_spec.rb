@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'ckeditor'
 
 RSpec.describe Account::Admin::ArticleController, type: :controller do
   let!(:article) { FactoryBot.attributes_for :article }

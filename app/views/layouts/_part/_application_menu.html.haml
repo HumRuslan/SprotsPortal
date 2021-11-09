@@ -5,10 +5,32 @@
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
-  %div{:style => "border-left: 1px solid #e1e4e8; height: 100%;", :class => "p-1"}
     - if user_signed_in?
-      %span= current_user.email
-      = link_to 'Log out', destroy_user_session_path, :method => :delete, :class => "btn btn-small text-danger"
+      - if current_user.admin?
+        %div{ :class => "rounded-circle bg-danger" }
+          - if (controller_path.split('/'))[1] == "admin"
+            =link_to raw('<i class="bi bi-arrow-left-right px-2 text-white" style="font-size: 2rem"}></i>'), account_user_root_path
+          - else
+            =link_to raw('<i class="bi bi-arrow-left-right px-2 text-white" style="font-size: 2rem"}></i>'), account_admin_root_path
+      %div{:style => "border-left: 1px solid #e1e4e8; height: 100%;", :class => "p-1"}
+    - if user_signed_in?
+      %div(class="dropdown")
+        %a{:class => "btn dropdown-toggle",
+                      :type => "button btn-sm",
+                      :id => "dropdownMenuButton",
+                      "data-toggle" => "dropdown",
+                      :style => "font-size: 2rem; wight: bolder",
+                      :aria-expanded => "false"}
+          %div(class="d-inline" )
+            %span{:style => "font-size: 1rem"}= current_user.full_name
+            - if current_user.admin?
+              /n
+              %span(class="text-secondary" style="font-size: 0.75rem" ) Admin
+
+        %div(class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton")
+          %p edit profile
+          %p published
+          =link_to 'Log out', destroy_user_session_path, :method => :delete, :class => "btn btn-small"
     - else
       = link_to 'Sign in', new_user_session_path, :class => "btn btn-small text-danger"
       = link_to 'Sign up', new_user_registration_path, :class => "btn btn-small text-danger"

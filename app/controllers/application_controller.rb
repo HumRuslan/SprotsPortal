@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found_record
-    flash["alert"] = 'Record not found denied'
+    flash["alert"] = 'Record not found'
     render file: "public/404.html", status: :not_found
   end
 end

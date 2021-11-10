@@ -5,12 +5,6 @@ class Account::User::HomeController < Account::User::UserApplicationController
   end
 
   def show
-    id = params['id']
-    begin
-      @article = Article.find(id)
-    rescue ActiveRecord::RecordNotFound
-      flash["alert"] = 'Article not found'
-      render file: "public/404.html", status: :not_found
-    end
+    @article = Article.find(params['id'])
   end
 end

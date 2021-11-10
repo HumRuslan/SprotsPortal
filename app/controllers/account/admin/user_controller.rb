@@ -35,13 +35,7 @@ class Account::Admin::UserController < Account::Admin::AdminApplicationControlle
   private
 
   def find_user
-    id = params['id']
-    begin
-      @user = User.find(id)
-      authorize([:account, :admin, @user])
-    rescue ActiveRecord::RecordNotFound
-      flash["alert"] = 'User not found'
-      render file: "public/404.html", status: :not_found
-    end
+    @user = User.find(params['id'])
+    authorize([:account, :admin, @user])
   end
 end

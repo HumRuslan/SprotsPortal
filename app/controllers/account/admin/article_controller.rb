@@ -44,13 +44,7 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   end
 
   def find_article
-    id = params['id']
-    begin
-      @article = Article.find(id)
-      authorize([:account, :admin, @article])
-    rescue ActiveRecord::RecordNotFound
-      flash["alert"] = 'Article not found'
-      render file: "public/404.html", status: :not_found
-    end
+    @article = Article.find(params['id'])
+    authorize([:account, :admin, @article])
   end
 end

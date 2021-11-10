@@ -35,7 +35,7 @@ class Account::Admin::UserController < Account::Admin::AdminApplicationControlle
   private
 
   def find_user
-    @user = User.find_by(id: params['id'])
+    @user = User.find(params['id'])
     authorize([:account, :admin, @user])
   end
 end

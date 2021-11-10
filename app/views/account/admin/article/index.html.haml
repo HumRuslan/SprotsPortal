@@ -22,10 +22,10 @@
                       :aria-expanded => "false"} ...
         %div(class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton")
           - if article.published?
-            %p unpublished
+            = link_to "unpublished", unpublished_account_admin_article_path(id: article.id), method: :put, :class => "dropdown-item"
           - else
-            %p published
-          %p delete
+            = link_to "published", published_account_admin_article_path(id: article.id), method: :put, :class => "dropdown-item"
+          = link_to "delete", account_admin_article_path(id: article.id), method: :delete, :class => "dropdown-item", :data => {:confirm => 'Are you sure?'}
     .col-md-4
       %img{style: "height: 200px; object-fit: contain;", :src => article.picture.thumb.url}
     .col-md-8

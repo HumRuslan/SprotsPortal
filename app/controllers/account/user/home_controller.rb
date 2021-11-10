@@ -5,6 +5,6 @@ class Account::User::HomeController < Account::User::UserApplicationController
   end
 
   def show
-    @article = Article.find_by(id: params['id'])
+    @article = Article.find(params['id'])
   end
 end

@@ -21,7 +21,12 @@ Rails.application.routes.draw do
           put "remove-admin"
         end
       end
-      resources :article
+      resources :article do
+        member do
+          put "published"
+          put "unpublished"
+        end
+      end
     end
 
     namespace :user do

@@ -47,6 +47,13 @@ RSpec.describe Account::Admin::UserController, type: :controller do
       put :activated, params: { id: subject.current_user.id }
       expect(User.find_by(id: user.id).access_locked?).to be false
     end
+
+    it 'has user not found' do
+      put :blocked, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
+      put :activated, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe "when admin grant and remove admin role" do
@@ -60,6 +67,13 @@ RSpec.describe Account::Admin::UserController, type: :controller do
       put :remove_admin, params: { id: subject.current_user.id }
       expect(User.find_by(id: user.id).admin?).to be false
     end
+
+    it 'has user not found' do
+      put :add_admin, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
+      put :remove_admin, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe "when admin delete user" do
@@ -67,6 +81,11 @@ RSpec.describe Account::Admin::UserController, type: :controller do
     it 'has user is deleted' do
       delete :destroy, params: { id: user.id }
       expect(User.find_by(id: user.id)).to eq(nil)
+    end
+
+    it 'has user not found' do
+      delete :destroy, params: { id: 'not_found' }
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

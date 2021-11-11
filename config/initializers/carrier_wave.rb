@@ -3,7 +3,6 @@ CarrierWave.configure do |config|
     :provider => 'AWS',
     :aws_access_key_id => Rails.application.credentials[:aws_access_key_id],
     :aws_secret_access_key => Rails.application.credentials[:aws_secret_access_key],
-
   }
   config.fog_directory = Rails.application.credentials[:aws_s2_bucket]
   # Choose what kind of storage to use for this uploader:

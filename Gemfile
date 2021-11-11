@@ -56,6 +56,7 @@ group :development do
   gem "haml-rails"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'travis'
 end
 
 group :test do
@@ -92,6 +93,7 @@ gem 'haml'
 gem 'carrierwave'
 gem 'ckeditor'
 gem 'devise'
+gem 'fog-aws'
 gem 'mini_magick'
 gem 'pundit'
 gem 'ransack'

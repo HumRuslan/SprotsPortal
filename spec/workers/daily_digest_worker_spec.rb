@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DailyDigestWorker do
+RSpec.describe DailyDigestWorker, type: :worker do
   describe "daily digest worker" do
     let(:article) { FactoryBot.create :article }
     let(:user) { FactoryBot.create :user }

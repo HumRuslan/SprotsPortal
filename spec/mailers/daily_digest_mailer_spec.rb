@@ -11,7 +11,8 @@ RSpec.describe DailyDigestMailer, type: :mailer do
       mail = described_class.with(email: user.email, articles: [article]).daily_digest
       expect(mail.subject).to eq("Daily Digest")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq([Rails.application.credentials.email[:user_name]])
+      # expect(mail.from).to eq([Rails.application.credentials.email[:user_name]])
+      expect(mail.from).to eq(['test.ruslan.blog@gmail.com'])
     end
 
     it "renders the body" do

@@ -1,13 +1,27 @@
 require 'simplecov'
+require 'rspec-sidekiq'
+require 'sidekiq/testing'
+Sidekiq::Testing.inline!
+
 SimpleCov.start 'rails' do
   add_filter '/bin/'
   add_filter '/db/'
   add_filter '/spec/' # for rspec
-  add_filter '/app/mailers/'
   add_filter '/app/models/ckeditor'
   add_filter '/app/uploaders/ckeditor'
 end
 SimpleCov.minimum_coverage 90
+
+RSpec::Sidekiq.configure do |config|
+  # Clears all job queues before each example
+  config.clear_all_enqueued_jobs = true # default => true
+
+  # Whether to use terminal colours when outputting messages
+  config.enable_terminal_colours = true # default => true
+
+  # Warn when jobs are not enqueued to Redis but to a job array
+  config.warn_when_jobs_not_processed_by_sidekiq = true # default => true
+end
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'

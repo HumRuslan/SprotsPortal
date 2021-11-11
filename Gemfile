@@ -69,6 +69,7 @@ group :test do
   # Add rspec-rails
   gem 'rails-controller-testing'
   gem "rspec-rails"
+  gem 'rspec-sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -94,3 +95,5 @@ gem 'devise'
 gem 'mini_magick'
 gem 'pundit'
 gem 'ransack'
+gem 'sidekiq'
+gem "sidekiq-cron"

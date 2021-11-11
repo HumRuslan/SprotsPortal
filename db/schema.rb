@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 2021_11_09_081126) do
     t.integer "comment", limit: 1, default: 0
     t.integer "published", limit: 1, default: 0
     t.string "picture"
-    t.datetime "created_at", precision: 6, default: "2021-11-09 08:39:50", null: false
-    t.datetime "updated_at", precision: 6, default: "2021-11-09 08:39:50", null: false
+    t.datetime "created_at", precision: 6, default: "2021-11-11 06:21:53", null: false
+    t.datetime "updated_at", precision: 6, default: "2021-11-11 06:21:53", null: false
     t.index ["headline"], name: "index_articles_on_headline"
   end
 

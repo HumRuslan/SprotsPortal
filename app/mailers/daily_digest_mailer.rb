@@ -1,5 +1,6 @@
 class DailyDigestMailer < ApplicationMailer
-  default from: "Admin Sports Portal <#{Rails.application.credentials.email[:user_name]}>"
+  # default from: "Admin Sports Portal <#{Rails.application.credentials.email[:user_name]}>"
+  default from: "Admin Sports Portal <test.ruslan.blog@gmail.com>"
   layout 'mailer'
 
   def daily_digest

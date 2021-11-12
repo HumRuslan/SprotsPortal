@@ -56,6 +56,7 @@ group :development do
   gem "haml-rails"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'travis'
 end
 
 group :test do
@@ -69,6 +70,7 @@ group :test do
   # Add rspec-rails
   gem 'rails-controller-testing'
   gem "rspec-rails"
+  gem 'rspec-sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -89,8 +91,11 @@ gem 'simple_form_fancy_uploads'
 gem 'haml'
 
 gem 'carrierwave'
+gem 'carrierwave-aws'
 gem 'ckeditor'
 gem 'devise'
 gem 'mini_magick'
 gem 'pundit'
 gem 'ransack'
+gem 'sidekiq'
+gem "sidekiq-cron"

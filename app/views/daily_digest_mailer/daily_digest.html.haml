@@ -1,0 +1,13 @@
+%h1(style="text-align: center") Daily digest
+%table(border="1" width="100%")
+  %thead
+    %tr
+      %th(width="30%") Headline
+      %th(width="40%") Caption
+      %th Link
+  %tbody
+    - @articles.each do |article|
+      %tr
+        %td= article.headline
+        %td= article.caption
+        %td= link_to "View article", account_user_article_url(id: article.id)

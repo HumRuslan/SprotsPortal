@@ -11,7 +11,7 @@ CarrierWave.configure do |config|
   config.aws_credentials = {
     access_key_id:      Rails.application.credentials.aws[:access_key_id],
     secret_access_key:  Rails.application.credentials.aws[:secret_access_key] ,
-    :region => Rails.application.credentials.aws[:s3_region],
+    region: Rails.application.credentials.aws[:s3_region],
   }
 
   config.aws_attributes = -> {

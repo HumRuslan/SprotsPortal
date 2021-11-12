@@ -468,6 +468,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_best_practices
   ransack
+  redis
   rspec-rails
   rspec-sidekiq
   rubocop (~> 1.22)

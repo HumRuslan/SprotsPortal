@@ -91,6 +91,7 @@ gem 'simple_form_fancy_uploads'
 gem 'haml'
 
 gem 'carrierwave'
+gem 'carrierwave-aws'
 gem 'ckeditor'
 gem 'devise'
 gem 'fog-aws'

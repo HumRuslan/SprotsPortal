@@ -3,7 +3,7 @@ Sidekiq.configure_server do |config|
     config.redis = { url: 'redis://localhost:6379/0' }
   end
   if Rails.env.production?
-    config.redis = { url: ENV['REDIS_URL'], size: 4, network_timeout: 5 }
+    config.redis = { url: ENV['REDIS_URL'] }
   end
   schedule_file = "config/schedule.yml"
   if File.exist?(schedule_file) && Sidekiq.server?
@@ -16,7 +16,7 @@ Sidekiq.configure_client do |config|
     config.redis = { url: 'redis://localhost:6379/0' }
   end
   if Rails.env.production?
-    config.redis = { url: ENV['REDIS_URL'], size: 4, network_timeout: 5 }
+    config.redis = { url: ENV['REDIS_URL'] }
   end
 end
 

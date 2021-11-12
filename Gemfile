@@ -97,5 +97,6 @@ gem 'devise'
 gem 'mini_magick'
 gem 'pundit'
 gem 'ransack'
+gem 'redis'
 gem 'sidekiq'
 gem "sidekiq-cron"

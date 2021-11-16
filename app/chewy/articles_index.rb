@@ -9,7 +9,7 @@ class ArticlesIndex < Chewy::Index
   }
 
   index_scope Article
-  field :headline
+  field :headline, analyzer: 'headline'
   field :caption
   field :content
 end

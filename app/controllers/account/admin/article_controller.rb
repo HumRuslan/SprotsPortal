@@ -2,13 +2,11 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   before_action :find_article, only: %i[published unpublished destroy]
 
   def index
-    @search = ArticleSearch.new(search_params)
     @articles = @search.search.load(only: 'article').objects
     authorize(@articles, policy_class: Account::Admin::ArticlePolicy)
   end
 
   def new
-    @search = ArticleSearch.new(search_params)
     @article = Article.new
     authorize([:account, :admin, @article])
   end
@@ -47,9 +45,5 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   def find_article
     @article = Article.find(params['id'])
     authorize([:account, :admin, @article])
-  end
-
-  def search_params
-    params[:search].permit(:query) if params[:search].present?
   end
 end

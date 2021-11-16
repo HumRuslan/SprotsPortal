@@ -1,7 +1,5 @@
 if Rails.env.production?
-  Chewy.settings = { host: ENV["FOUNDELASTICSEARCH_URL"].split("https://")[1],
-                     schema: "https",
-                     port: "9243"}
+  Chewy.settings = { host: ENV["FOUNDELASTICSEARCH_URL"] }
 else
   Chewy.logger = Rails.logger
 end

@@ -33,4 +33,4 @@
           %h3= article.headline
           %p
             =article_short_content strip_tags(article.content), 50
-            =link_to 'More ...', account_admin_article_path(id: article.id), :class => "font-italic"
+            =link_to 'More ...', account_user_article_path(id: article.id), :class => "font-italic"

@@ -6,4 +6,4 @@ test:
 development:
   host: 'localhost:9200'
 production:
-  host: Rails.application.credentials.elasticsearch[:url],
+  host: ENV["FOUNDELASTICSEARCH_URL"].split("https://")[1],

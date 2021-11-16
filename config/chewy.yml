@@ -6,4 +6,4 @@ test:
 development:
   host: 'localhost:9200'
 production:
-  host: ENV['FOUNDELASTICSEARCH_URL']
+  host: FOUNDELASTICSEARCH_URL

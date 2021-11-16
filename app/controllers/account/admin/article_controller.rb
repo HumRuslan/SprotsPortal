@@ -4,7 +4,7 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   def index
     @search = ArticleSearch.new(search_params)
     @articles = @search.search.load(only: 'article').objects
-    authorize([:account, :admin, @article])
+    authorize(@articles, policy_class: Account::Admin::ArticlePolicy)
   end
 
   def new

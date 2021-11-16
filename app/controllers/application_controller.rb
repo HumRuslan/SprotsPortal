@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found_record
   before_action :search_form, only: %i[index new show]
 
+  def index; end
+
+  def new; end
+
+  def show; end
+
   protected
 
   def configure_permitted_parameters

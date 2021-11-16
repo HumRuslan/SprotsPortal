@@ -8,6 +8,4 @@ class Account::User::HomeController < Account::User::UserApplicationController
   def show
     @article = Article.find(params['id'])
   end
-
-  private
 end

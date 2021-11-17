@@ -4,7 +4,7 @@ class Account::User::ProfileController < Account::User::UserApplicationControlle
   def edit; end
 
   def update
-    if params[:user].key?(:current_password)
+    if user_params.key?(:current_password)
       flash[:notice] = "Profile is saved" if @user.update_with_password(user_params)
     elsif @user.update(user_params)
       flash[:notice] = "Profile is saved"

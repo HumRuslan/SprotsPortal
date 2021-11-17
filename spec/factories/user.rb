@@ -6,6 +6,7 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     email { Faker::Internet.email(domain: 'example') }
     password { Faker::Internet.password(min_length: 6) }
+    avatar { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'image', 'not-photo.png')) }
 
     trait :confirm do
       confirmed_at { DateTime.now }

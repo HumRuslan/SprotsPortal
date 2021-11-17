@@ -92,6 +92,7 @@ gem 'haml'
 
 gem 'carrierwave'
 gem 'carrierwave-aws'
+gem 'chewy'
 gem 'ckeditor'
 gem 'devise'
 gem 'mini_magick'

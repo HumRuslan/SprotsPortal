@@ -2,9 +2,15 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   before_action :find_article, only: %i[published unpublished destroy]
 
   def index
-    @q = Article.ransack(params[:q])
-    @articles = @q.result(distinct: false)
-    authorize([:account, :admin, @articles])
+    # @q = Article.ransack(params[:q])
+    # @articles = @q.result(distinct: false)
+    #
+
+    @search = ArticleSearch.new
+
+    @article = @search.result.objects
+
+    # authorize([:account, :admin, @articles])
   end
 
   def new

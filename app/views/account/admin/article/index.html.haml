@@ -3,13 +3,13 @@
   %div(class="col-md-12 text-right")
     =link_to raw("<i class='bi bi-plus'></i> New article"), new_account_admin_article_path, :class => "btn btn-danger w-25"
 .row
-  %div(class="col-md-12 text-right m-3" )
-    =search_form_for @q, url: account_admin_article_index_path do |f|
-      %div(class="col-md-12 text-right")
-        %button{:class => "btn btn-default", :type => "submit"}
-          %i(class="bi bi-search")
-      %div(class="col-md-4 offset-md-8" )
-        .field= f.select :published_eq, options_for_select([["All", ""], ["unpublished","0"], ["published", "1"]], @q.published_eq), {}, {:class => "w-75"}
+  -#%div(class="col-md-12 text-right m-3" )
+  -#  =search_form_for @q, url: account_admin_article_index_path do |f|
+  -#    %div(class="col-md-12 text-right")
+  -#      %button{:class => "btn btn-default", :type => "submit"}
+  -#        %i(class="bi bi-search")
+  -#    %div(class="col-md-4 offset-md-8" )
+  -#      .field= f.select :published_eq, options_for_select([["All", ""], ["unpublished","0"], ["published", "1"]], @q.published_eq), {}, {:class => "w-75"}
 - @articles.each do |article|
   .row.p-3
     .col-md-12.text-right

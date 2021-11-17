@@ -1,6 +1,7 @@
 require 'simplecov'
 require 'rspec-sidekiq'
 require 'sidekiq/testing'
+require 'chewy/rspec'
 Sidekiq::Testing.inline!
 
 SimpleCov.start 'rails' do
@@ -88,7 +89,9 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
-
+  config.before(:suite) do
+    Chewy.strategy(:bypass)
+  end
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.extend ControllerMacros, type: :controller

@@ -5,6 +5,7 @@ cache:
   - bundler
 services:
   - mysql
+  - elasticsearch
 before_install:
   - gem install bundler:2.2.29
 before_script:

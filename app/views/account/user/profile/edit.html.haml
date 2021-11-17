@@ -1,0 +1,62 @@
+.row
+  .col-md-4
+  .col-md-8.p-5
+    %ul#pills-tab.nav.nav-pills.mb-3{:role => "tablist"}
+      %li.nav-item.w-25.text-center.text-dark.shadow{:role => "presentation"}
+        %a#pills-home-tab.nav-link.active{"aria-controls" => "pills-home", "aria-selected" => "true", "data-toggle" => "pill", :href => "#pills-home", :role => "tab", :id => "page_profile"} Person
+      %li.nav-item.w-25.text-center.text-dark.shadow{:role => "presentation"}
+        %a#pills-contact-tab.nav-link{"aria-controls" => "pills-contact", "aria-selected" => "false", "data-toggle" => "pill", :href => "#pills-profile", :role => "tab", :id => "page_password"} Change password
+    #pills-tabContent.tab-content
+      #pills-home.tab-pane.fade.show.active{"aria-labelledby" => "pills-home-tab", :role => "tabpanel"}
+        .col-md-6.offset-md-3
+          = simple_form_for(@user, as: :user, method: :put, url: account_user_user_path(id: @user.id), html: { multipart: true}) do |f|
+            = f.error_notification
+            =render "layouts/_part/error_messages", resource: @user
+            .row.text-center
+              %div{:style => "height: 200px; width: 200px; margin: auto; border-radius: 50%; border: 5px gray; padding: 1%; position: relative"}
+                %img{:id => "img_prev", :class => "h-100 w-100", :style => "z-index: 0; object-fit: cover; border-radius: 50%; border: 2px gray margin: 2px", :src => @user.avatar.url}
+                %h4{ :class => "custom-file rounded-circle bg-danger text-center text-white d-inline p-2 position-absolute", :style => "top: 100%; z-index: 1; left: 50%; width: 40px; height: 40px; transform: translate(-50%, -50%)"}
+                  = f.file_field :avatar, id: "inputGroupFile04", "aria-describedby" => "inputGroupFileAddon01", :class => "custom-file-input w-0 position-absolute", "aria-describedby" => "inputGroupFileAddon04", :type => "file", :onchange => "readURL(this)", :accept => "image/*"
+                  %i(class="bi bi-camera-fill w-100 h-100")
+            = f.input :first_name, class: "form-control center"
+            = f.input :last_name, class: "form-control center"
+            = f.input :email, class: "form-control center"
+            = f.submit "SAVE", class: "btn btn-danger w-100"
+
+
+      #pills-profile.tab-pane.fade{"aria-labelledby" => "pills-profile-tab", :role => "tabpanel"}
+        .col-md-6.offset-md-3
+          = simple_form_for(@user, as: :user, method: :put, url: account_user_user_path(id: @user.id), html: { multipart: true, id: "edit_password"  }) do |f|
+            = f.input :old_password, class: "form-control center"
+            = f.input :password, class: "form-control center"
+            = f.input :password_confirmation, class: "form-control center"
+            = f.submit "SAVE", class: "btn btn-danger w-100"
+
+
+:css
+    .shadow{
+      box-shadow: gray 2px 2px;
+
+    }
+
+    a {
+      color: black !important;
+      font-weight: bolder;
+    }
+
+    a.active {
+      background-color: white !important;
+      color: red !important;
+    }
+
+:javascript
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#img_prev')
+          .attr('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }

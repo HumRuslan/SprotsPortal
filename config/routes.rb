@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     namespace :user do
       root "home#index"
       resources :article, controller: :home, only: %i[index show]
+      resources :user, controller: :profile
     end
   end
 end

@@ -29,4 +29,12 @@ class Account::Admin::UserPolicy
   def remove_admin?
     @current_user.admin?
   end
+
+  def edit?
+    @user.id == @current_user.id
+  end
+
+  def update?
+    @user.id == @current_user.id
+  end
 end

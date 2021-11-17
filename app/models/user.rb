@@ -6,6 +6,8 @@ class User < ApplicationRecord
          :confirmable,
          :validatable,
          :lockable
+  mount_uploader :avatar, AvatarUploader
+
   enum role: { user: 0, admin: 1 }
 
   validates :first_name, length: { minimum: 2 }, presence: true

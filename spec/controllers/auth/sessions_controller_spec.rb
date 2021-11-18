@@ -32,4 +32,12 @@ RSpec.describe Auth::SessionsController, type: :controller do
       expect(response).to redirect_to(account_user_root_path)
     end
   end
+
+  describe 'When user log out' do
+    login_user
+    it 'has logout user' do
+      delete :destroy
+      expect(response).to have_http_status(:redirect)
+    end
+  end
 end

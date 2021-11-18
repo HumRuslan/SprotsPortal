@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_16_150232) do
+ActiveRecord::Schema.define(version: 2021_11_18_080157) do
 
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "headline"
@@ -55,6 +55,12 @@ ActiveRecord::Schema.define(version: 2021_11_16_150232) do
     t.datetime "locked_at"
     t.integer "failed_attempts"
     t.string "avatar"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.datetime "last_sign_out_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name"

@@ -30,6 +30,14 @@
         %div(class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton")
           =link_to 'Edit profile', edit_account_user_user_path(id: current_user.id), :method => :get, :class => "btn btn-small"
           =link_to 'Log out', destroy_user_session_path, :method => :delete, :class => "btn btn-small"
+
     - else
       = link_to 'Sign in', new_user_session_path, :class => "btn btn-small text-danger"
       = link_to 'Sign up', new_user_registration_path, :class => "btn btn-small text-danger"
+
+:javascript
+  $(document).ready(function() {
+    $(window).bind("beforeunload", function() {
+        $.ajax({url: '/users/sign_out', type: 'DELETE'})
+    });
+  });

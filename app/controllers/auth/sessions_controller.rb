@@ -13,10 +13,10 @@ class Auth::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    current_user.update_attribute(:last_sign_out_at, Time.current)
+    super
+  end
 
   # protected
 
@@ -24,4 +24,6 @@ class Auth::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  #
+  #
 end

@@ -16,7 +16,9 @@
       %tbody
         - @users.each do |user|
           %tr(scope="row")
-            %td= user.full_name
+            %td
+              =user.full_name
+              =user.online? ? raw('<sub class="bg-success">online</sub>') : raw('<sub class="bg-secondary">offline</sub>')
             %td= !user.access_locked? ? raw("<span class='text-success'>Active</span>") : "Blocked"
             %td(class="text-center")
               -if !user.access_locked?
@@ -50,7 +52,9 @@
       %tbody
         - @admins.each do |admin|
           %tr(scope="row")
-            %td= admin.full_name
+            %td
+              =admin.full_name
+              =admin.online? ? raw('<sub class="bg-success">online</sub>') : raw('<sub class="bg-secondary">offline</sub>')
             %td
               %span(class='text-success') Active
             %td(class="text-center")

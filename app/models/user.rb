@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :rememberable,
          :confirmable,
          :validatable,
-         :lockable
+         :lockable,
+         :trackable
   mount_uploader :avatar, AvatarUploader
 
   enum role: { user: 0, admin: 1 }
@@ -21,6 +22,14 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def online?
+    if current_sign_in_at.present?
+      last_sign_out_at.present? ? current_sign_in_at > last_sign_out_at : true
+    else
+      false
+    end
   end
 
   private

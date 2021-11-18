@@ -13,7 +13,7 @@ RSpec.describe Account::Admin::UserController, type: :controller do
       get :index
       expect(response).to render_template("index")
     end
-  end
+   end
 
   describe "when user isn't login" do
     logout_admin

@@ -1,7 +1,7 @@
 class Account::User::HomeController < Account::User::UserApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   def index
-    search = search_params || {}
+    search = search_params
     search[:filters] = { published: "published" }
     @search = ArticleSearch.new(search)
     @articles = @search.result.objects
@@ -12,6 +12,6 @@ class Account::User::HomeController < Account::User::UserApplicationController
   end
 
   def search_params
-    params[:search].permit(:query, filters: {}) if params.key? :search
+    params.permit(search: {})[:search] || {}
   end
 end

@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Auth::SessionsController, type: :controller do
-  let!(:user) { FactoryBot.create :user, :confirm }
-
   describe 'When user is login as admin' do
     login_admin
     it 'has role admin' do

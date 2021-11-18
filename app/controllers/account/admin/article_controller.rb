@@ -2,15 +2,9 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   before_action :find_article, only: %i[published unpublished destroy]
 
   def index
-    # @q = Article.ransack(params[:q])
-    # @articles = @q.result(distinct: false)
-    #
-
-    @search = ArticleSearch.new
-
-    @article = @search.result.objects
-
-    # authorize([:account, :admin, @articles])
+    @search = ArticleSearch.new(search_params)
+    @articles = @search.result.objects
+    authorize(@articles, policy_class: Account::Admin::ArticlePolicy)
   end
 
   def new
@@ -52,5 +46,9 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   def find_article
     @article = Article.find(params['id'])
     authorize([:account, :admin, @article])
+  end
+
+  def search_params
+    params[:search].permit(:query, filters: {}, orders: {}) if params.key? :search
   end
 end

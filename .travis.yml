@@ -8,9 +8,14 @@ services:
   - elasticsearch
 before_install:
   - gem install bundler:2.2.29
+  - curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-amd64.deb -o elasticsearch.deb
+  - sudo dpkg -i --force-confnew elasticsearch.deb
+  - sudo chown -R elasticsearch:elasticsearch /etc/default/elasticsearch
+  - sudo service elasticsearch restart
 before_script:
   - bundle install --jobs=3 --retry=3
   - mysql -e 'create database sports_portal_test'
+  - sleep 10
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare

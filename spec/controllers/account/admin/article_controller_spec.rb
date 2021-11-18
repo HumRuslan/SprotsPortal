@@ -9,11 +9,31 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     it "has get index" do
       get :index
       expect(response).to render_template("index")
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "has get index with search params" do
+      get :index, params: {
+        search: {
+          query: "some text"
+        }
+      }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "has get index with orders params" do
+      get :index, params: {
+        search: {
+          orders: { headline: { order: :desc } }
+        }
+      }
+      expect(response).to have_http_status(:ok)
     end
 
     it 'has get new' do
       get :new
       expect(response).to render_template("new")
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -31,6 +51,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       } }
       expect(Article.count).to eq 0
       expect(response).to render_template("new")
+      expect(response).to have_http_status(:ok)
     end
   end
 

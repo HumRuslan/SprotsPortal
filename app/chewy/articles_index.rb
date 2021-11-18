@@ -9,7 +9,9 @@ class ArticlesIndex < Chewy::Index
   }
 
   index_scope Article
-  field :headline, analyzer: 'headline'
+  field :headline, type: 'text', fielddata: true, analyzer: 'headline'
   field :caption
   field :content
+  field :published
+  field :created, type: 'date', value: -> { created_at }
 end

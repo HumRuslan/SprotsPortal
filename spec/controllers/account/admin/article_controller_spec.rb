@@ -12,15 +12,6 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it "has get index with search params" do
-      get :index, params: {
-        search: {
-          query: "some text"
-        }
-      }
-      expect(response).to have_http_status(:ok)
-    end
-
     it 'has get new' do
       get :new
       expect(response).to render_template("new")
@@ -34,15 +25,6 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       post :create, params: { article: article }
       expect(Article.count).to eq 1
       expect(response).to redirect_to(account_admin_article_index_path)
-    end
-
-    it "has created article success and redirect to new page" do
-      post :create, params: { article: {
-        headline: 'headline'
-      } }
-      expect(Article.count).to eq 0
-      expect(response).to render_template("new")
-      expect(response).to have_http_status(:ok)
     end
   end
 

@@ -312,6 +312,8 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rspec-collection_matchers (1.2.0)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -484,6 +486,7 @@ DEPENDENCIES
   rails_best_practices
   ransack
   redis
+  rspec-collection_matchers
   rspec-rails
   rspec-sidekiq
   rubocop (~> 1.22)

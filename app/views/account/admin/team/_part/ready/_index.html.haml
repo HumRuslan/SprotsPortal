@@ -1,0 +1,69 @@
+#v-pills-tabContent.tab-content.w-100
+  -@categories.each_with_index do |category, index_cat|
+    -category.sub_categories.each_with_index do |sub_category, index_subcat|
+      -if index_cat == 0 && index_subcat == 0
+        .tab-pane.fade.show.active{id: "v-pills-teams#{sub_category.id}", "aria-labelledby" => "v-pills-teams#{sub_category.id}", :role => "tabpanel"}
+          =link_to "+ Add team", new_account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id), {:remote => true,"data-target" => "#myModal", "data-toggle" => "modal", "class" => "btn btn-light w-100 text-secondary border-secondary p-4", :style => "border: dashed;"}
+          #v-pills-tab-subcategory.nav.flex-column.nav-pills.w-100.mt-5{"aria-orientation" => "vertical", :role => "tablist"}
+            - sub_category.teams.each_with_index do |team, index|
+              -if index == 0
+                .nav-link.w-100.active.my-2.btn.btn-light.text-secondary{:id => "v-pills-tem-#{team.id}-tab", "aria-controls" => "v-pills-subcategory-#{team.id}", "aria-selected" => "true", "data-toggle" => "pill", :role => "tab"}
+                  .w-100.text-right
+                    %div(class="dropdown" )
+                      %a{:class => "text-danger btn p-0",
+                            :type => "button btn-sm",
+                            :id => "dropdownMenuButton",
+                            "data-toggle" => "dropdown",
+                            :style => "wight: bolder; border: none;",
+                            :aria-expanded => "false"} ...
+                      %div(class="dropdown-menu p-2 m-0" aria-labelledby="dropdownMenuButton" style="border: none" )
+                        = link_to "delete", account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :delete, :class => "dropdown-item"
+                        = link_to "edit", edit_account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :get, :remote => true, :class => "dropdown-item", "data-target" => "#myModal", "data-toggle" => "modal"
+                  = team.name
+              -else
+                .nav-link.w-100.my-2.btn.btn-light.text-secondary{:id => "v-pills-tem-#{team.id}-tab", "aria-controls" => "v-pills-subcategory-#{team.id}", "aria-selected" => "true", "data-toggle" => "pill", :role => "tab"}
+                  .w-100.text-right
+                    %div(class="dropdown" )
+                      %a{:class => "text-danger btn p-0",
+                            :type => "button btn-sm",
+                            :id => "dropdownMenuButton",
+                            "data-toggle" => "dropdown",
+                            :style => "wight: bolder; border: none;",
+                            :aria-expanded => "false"} ...
+                      %div(class="dropdown-menu p-2 m-0" aria-labelledby="dropdownMenuButton" style="border: none" )
+                        = link_to "delete", account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :delete, :class => "dropdown-item"
+                        = link_to "edit", edit_account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :get, :remote => true, :class => "dropdown-item", "data-target" => "#myModal", "data-toggle" => "modal"
+                  = team.name
+      - else
+        .tab-pane.fade.show{id: "v-pills-teams#{sub_category.id}", "aria-labelledby" => "v-pills-teams#{sub_category.id}", :role => "tabpanel"}
+          =link_to "+ Add team", new_account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id), {:remote => true,"data-target" => "#myModal", "data-toggle" => "modal", "class" => "btn btn-light w-100 text-secondary border-secondary p-4", :style => "border: dashed;"}
+          #v-pills-tab-subcategory.nav.flex-column.nav-pills.w-100.mt-5{"aria-orientation" => "vertical", :role => "tablist"}
+            - sub_category.teams.each_with_index do |team, index|
+              -if index == 0
+                .nav-link.w-100.active.my-2.btn.btn-light.text-secondary{:id => "v-pills-tem-#{team.id}-tab", "aria-controls" => "v-pills-subcategory-#{team.id}", "aria-selected" => "true", "data-toggle" => "pill", :role => "tab"}
+                  .w-100.text-right
+                    %div(class="dropdown" )
+                      %a{:class => "text-danger btn p-0",
+                              :type => "button btn-sm",
+                              :id => "dropdownMenuButton",
+                              "data-toggle" => "dropdown",
+                              :style => "wight: bolder; border: none;",
+                              :aria-expanded => "false"} ...
+                      %div(class="dropdown-menu p-2 m-0" aria-labelledby="dropdownMenuButton" style="border: none" )
+                        = link_to "delete", account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :delete, :class => "dropdown-item"
+                        = link_to "edit", edit_account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :get, :remote => true, :class => "dropdown-item", "data-target" => "#myModal", "data-toggle" => "modal"
+                  = team.name
+              -else
+                .nav-link.w-100.my-2.btn.btn-light.text-secondary{:id => "v-pills-tem-#{team.id}-tab", "aria-controls" => "v-pills-subcategory-#{team.id}", "aria-selected" => "true", "data-toggle" => "pill", :role => "tab"}
+                  .w-100.text-right
+                    %div(class="dropdown" )
+                      %a{:class => "text-danger btn p-0",
+                              :type => "button btn-sm",
+                              :id => "dropdownMenuButton",
+                              "data-toggle" => "dropdown",
+                              :style => "wight: bolder; border: none;",
+                              :aria-expanded => "false"} ...
+                      %div(class="dropdown-menu p-2 m-0" aria-labelledby="dropdownMenuButton" style="border: none" )
+                        = link_to "delete", account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :delete, :class => "dropdown-item"
+                        = link_to "edit", edit_account_admin_category_sub_category_team_path(category_id: category.id, sub_category_id: sub_category.id, id: team.id), method: :get, :remote => true, :class => "dropdown-item", "data-target" => "#myModal", "data-toggle" => "modal"
+                  = team.name

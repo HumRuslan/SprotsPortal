@@ -49,6 +49,6 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   end
 
   def search_params
-    params[:search].permit(:query, filters: {}, orders: {}) if params.key? :search
+    params.permit(search: {})[:search] || {}
   end
 end

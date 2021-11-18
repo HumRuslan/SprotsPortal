@@ -9,7 +9,6 @@ FactoryBot.define do
     avatar { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'image', 'not-photo.png')) }
 
     trait :confirm do
-      current_sign_in_at { DateTime.now }
       confirmed_at { DateTime.now }
     end
   end

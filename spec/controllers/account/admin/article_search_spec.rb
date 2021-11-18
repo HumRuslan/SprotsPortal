@@ -7,7 +7,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     login_admin
     it 'has articles without search params' do
       article
-      ArticlesIndex.import!
+      update_index
       get :index
       expect(assigns(:articles).count).to eq 1
     end

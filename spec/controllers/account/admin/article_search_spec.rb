@@ -8,7 +8,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     it 'has articles without search params' do
       article
       update_index
-      sleep 20
+      sleep 60
       get :index
       expect(assigns(:articles).count).to eq 1
     end
@@ -16,7 +16,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     it "hasn't articles with search params" do
       article
       update_index
-      sleep 20
+      sleep 60
       get :index, params: {
         search: {
           query: "Some_Text"
@@ -31,7 +31,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     it 'has articles' do
       article
       update_index
-      sleep 20
+      sleep 60
       get :index, params: {
         search: {
           filters: {
@@ -45,7 +45,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     it "hasn't articles with search params" do
       article
       update_index
-      sleep 20
+      sleep 60
       get :index, params: {
         search: {
           filters: {

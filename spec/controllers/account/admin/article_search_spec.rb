@@ -9,7 +9,6 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       article
       ArticlesIndex.import!
       get :index
-      p assigns(:articles)
       expect(assigns(:articles).count).to be > 0
     end
 

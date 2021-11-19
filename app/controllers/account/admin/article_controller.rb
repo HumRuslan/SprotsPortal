@@ -2,7 +2,6 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
   before_action :find_article, only: %i[published unpublished destroy]
 
   def index
-    # byebug
     @search = ArticleSearch.new(search_params)
     @articles = @search.result.objects
     authorize(@articles, policy_class: Account::Admin::ArticlePolicy)

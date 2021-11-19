@@ -25,7 +25,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       expect(response).to redirect_to(account_admin_article_index_path)
     end
 
-    it "has created article success and redirect to new page" do
+    it "has created article failed and redirect to new page" do
       post :create, params: { article: {
         headline: 'headline'
       } }

@@ -7,8 +7,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     login_admin
     it 'has articles without search params' do
       article
-      # update_index
-      ArticlesIndex.import!
+      update_index
       get :index
       expect(assigns(:articles).count).to eq 1
     end
@@ -29,8 +28,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     login_admin
     it 'has articles' do
       article
-      # update_index
-      ArticlesIndex.import!
+      update_index
       get :index, params: {
         search: {
           filters: {
@@ -41,7 +39,7 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       expect(assigns(:articles).count).to eq 1
     end
 
-    it "hasn't articles with search params" do
+    it "hasn't articles with filtered params" do
       article
       update_index
       get :index, params: {

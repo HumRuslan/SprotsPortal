@@ -18,6 +18,14 @@ class Account::Admin::ArticlePolicy
     @current_user.admin?
   end
 
+  def edit?
+    @current_user.admin?
+  end
+
+  def update?
+    @current_user.admin?
+  end
+
   def destroy?
     @current_user.admin?
   end

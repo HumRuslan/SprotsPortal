@@ -17,3 +17,4 @@
                   = link_to "delete", account_admin_category_sub_category_path(category_id: category.id, id: sub_category.id), method: :delete, :class => "dropdown-item"
                   = link_to "edit", edit_account_admin_category_sub_category_path(category_id: category.id, id: sub_category.id), method: :get, :remote => true, :class => "dropdown-item", "data-target" => "#myModal", "data-toggle" => "modal"
             = sub_category.name
+

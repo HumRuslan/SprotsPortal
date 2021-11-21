@@ -17,4 +17,8 @@
       - if notice
         %div(class="row" )
           %p(class="alert alert-info col-md-12 text-center" role="alert")=notice
-      = yield
+      .row.p-3
+        .col-md-3
+          =render "layouts/_part/user_menu"
+        .col-md-9
+          = yield

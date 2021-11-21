@@ -10,7 +10,7 @@ class Account::Admin::SubCategoryController < Account::Admin::AdminApplicationCo
 
   def create
     @sub_category = SubCategory.new(sub_category_params)
-    flash[:alert] = "Error to create category" unless @sub_category.save
+    flash[:alert] = "Error to create subcategory" unless @sub_category.save
     redirect_to account_admin_category_index_url
   end
 
@@ -19,7 +19,7 @@ class Account::Admin::SubCategoryController < Account::Admin::AdminApplicationCo
   end
 
   def update
-    flash[:alert] = "Error to update category" unless @sub_category.update(sub_category_params)
+    flash[:alert] = "Error to update subcategory" unless @sub_category.update(sub_category_params)
     redirect_to account_admin_category_index_url
   end
 

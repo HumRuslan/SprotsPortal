@@ -3,7 +3,7 @@ class Account::Admin::TeamController < Account::Admin::AdminApplicationControlle
 
   def new
     @team = Team.new
-    @team.category_id = params[:category_id]
+    @category = params[:category_id]
     @team.sub_category_id = params[:sub_category_id]
     authorize([:account, :admin, @team])
     response_is
@@ -16,6 +16,7 @@ class Account::Admin::TeamController < Account::Admin::AdminApplicationControlle
   end
 
   def edit
+    @category = params[:category_id]
     response_is
   end
 
@@ -32,7 +33,7 @@ class Account::Admin::TeamController < Account::Admin::AdminApplicationControlle
   private
 
   def team_params
-    params.require(:team).permit(:name, :category_id, :sub_category_id)
+    params.require(:team).permit(:name, :sub_category_id)
   end
 
   def find_team

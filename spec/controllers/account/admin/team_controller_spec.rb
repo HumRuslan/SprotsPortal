@@ -6,9 +6,10 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
 
   describe "when admin visited index page" do
     login_admin
+
     it "has get new" do
       get :new, params: {
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id
       }, xhr: true
       expect(response).to have_http_status(:ok)
@@ -16,7 +17,7 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
 
     it "has get update" do
       get :edit, params: {
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id,
         id: team_create.id
       }, xhr: true
@@ -27,7 +28,7 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
   describe "when user visited index page" do
     it "has get new" do
       get :new, params: {
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id
       }, xhr: true
       expect(response).to have_http_status(:unauthorized)
@@ -35,7 +36,7 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
 
     it "has get update" do
       get :edit, params: {
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id,
         id: team_create.id
       }, xhr: true
@@ -47,11 +48,10 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
     login_admin
     it "has create new subcategory" do
       post :create, params: {
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id,
         team: {
           name: team[:name],
-          category_id: team_create.category_id,
           sub_category_id: team_create.sub_category_id
         }
       }, xhr: true
@@ -61,7 +61,7 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
 
     it "hasn't create new team" do
       post :create, params: {
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id,
         team: { name: "" }
       }
@@ -74,11 +74,10 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
     it "has update new subcategory" do
       post :update, params: {
         id: team_create.id,
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id,
         team: {
           name: team[:name],
-          category_id: team_create.category_id,
           sub_category_id: team_create.sub_category_id
         }
       }, xhr: true
@@ -89,11 +88,10 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
     it "hasn't update subcategory" do
       post :update, params: {
         id: team_create.id,
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id,
         team: {
           name: "",
-          category_id: team_create.category_id,
           sub_category_id: team_create.sub_category_id
         }
       }, xhr: true
@@ -106,7 +104,7 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
     it 'has delete team' do
       delete :destroy, params: {
         id: team_create.id,
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id
       }, xhr: true
       expect(Team.where(id: team_create.id)).to have(0).records
@@ -114,7 +112,7 @@ RSpec.describe Account::Admin::TeamController, type: :controller do
 
     it 'has team not found' do
       delete :destroy, params: {
-        category_id: team_create.category_id,
+        category_id: team_create.sub_category.category_id,
         sub_category_id: team_create.sub_category_id,
         id: 'not_found'
       }, xhr: true

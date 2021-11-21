@@ -1,6 +1,6 @@
 -provide(:page, 'article')
 .wellington.center.news-form.m-5
-  = simple_form_for(@article, as: :article, method: :post, url: account_admin_article_index_path, html: { multipart: true }) do |f|
+  = simple_form_for(@article, as: :article, method: current_page?(controller: 'article', action: 'new') ? :post : :patch, url: current_page?(controller: 'article', action: 'new') ? account_admin_article_index_path : account_admin_article_path(id: @article.id), html: { multipart: true }) do |f|
     = f.error_notification
     =render "layouts/_part/error_messages", resource: @article
 
@@ -10,13 +10,14 @@
     = f.label :picture
     .row{:style => "height: 500px;"}
       .col-md-12.h-100
-        %img{:id => "img_prev", :class => "h-100 w-100", :style => "z-index: 0; object-fit: contain;"}
+        %img{:id => "img_prev", :class => "h-100 w-100", :style => "z-index: 0; object-fit: contain;", :src => @article.picture.url}
         %h1{ :class => "custom-file rounded-circle bg-danger text-center text-white d-inline p-2 position-absolute", :style => "top: 50%; z-index: 1; left: 50%; width: 65px; height: 65px; transform: translate(-50%, -50%)"}
           = f.file_field :picture, id: "inputGroupFile04", "aria-describedby" => "inputGroupFileAddon01", :class => "custom-file-input w-0 position-absolute", "aria-describedby" => "inputGroupFileAddon04", :type => "file", :onchange => "readURL(this)", :accept => "image/*"
           %i(class="bi bi-camera-fill w-100 h-100")
     %br
     = f.input :alt_picture, class: "form-control center w-100", label: 'ALT'
     = f.input :headline, class: "form-control center", label: 'ARTICLE HEADLINE'
+    = f.input :team_id, collection: Team.all.map{|team| [team.name, team.id]}, selected: 1
     = f.input :caption, class: "form-control center", label: 'CAPTION'
     = f.input :content, :as => :ckeditor, input_html: {:ckeditor => {:toolbar => 'FULL'}}, class: "form-control left", label: 'CONTENT'
     %div(class="d-none" )

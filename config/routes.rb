@@ -36,7 +36,12 @@ Rails.application.routes.draw do
 
     namespace :user do
       root "home#index"
-      resources :article, controller: :home, only: %i[index show]
+      resources :article, controller: :home, only: %i[index show] do
+        collection do
+          get 'search', to: "home#search_articles"
+        end
+      end
+      get 'category/:id/articles', to: "home#articles_by_category"
       resources :user, controller: :profile, only: %i[edit update]
     end
   end

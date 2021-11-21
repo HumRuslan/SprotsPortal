@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_19_032407) do
+ActiveRecord::Schema.define(version: 2021_11_21_052918) do
 
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "headline"
@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 2021_11_19_032407) do
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "team_id"
     t.index ["headline"], name: "index_articles_on_headline"
+    t.index ["team_id"], name: "fk_rails_d05edb9d3f"
   end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -53,11 +55,9 @@ ActiveRecord::Schema.define(version: 2021_11_19_032407) do
 
   create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.bigint "category_id"
     t.bigint "sub_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "fk_rails_f303df3bce"
     t.index ["sub_category_id"], name: "fk_rails_acf64d2e71"
   end
 
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_032407) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "articles", "teams"
   add_foreign_key "sub_categories", "categories"
-  add_foreign_key "teams", "categories"
   add_foreign_key "teams", "sub_categories"
 end

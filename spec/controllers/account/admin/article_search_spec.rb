@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Account::Admin::ArticleController, type: :controller do
-  let!(:article) { FactoryBot.create :article }
+  after(:each) do
+    ArticlesIndex.delete
+    ArticlesIndex.create!
+  end
+
+  let!(:article) { FactoryBot.create :article}
 
   describe "when use search article" do
     login_admin

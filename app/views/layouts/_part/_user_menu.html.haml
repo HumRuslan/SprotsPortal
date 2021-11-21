@@ -1,0 +1,5 @@
+.row
+  .col-md-12
+    = link_to 'Home', account_user_root_path, :class => "btn w-100 btn-light text-secondary my-2"
+    - Category.all.each do |category|
+      =link_to category.name, account_user_path(id: category.id), :class => "btn w-100 btn-light text-secondary my-2"

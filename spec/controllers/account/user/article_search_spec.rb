@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Account::User::HomeController, type: :controller do
-  around(:each) do |each|
+  around do |each|
     article
     ArticlesIndex.import!
     each.run

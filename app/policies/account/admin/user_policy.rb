@@ -1,40 +1,13 @@
-class Account::Admin::UserPolicy
-  attr_reader :current_user, :model
-
-  def initialize(current_user, model)
-    @current_user = current_user
-    @user = model
+class Account::Admin::UserPolicy < BasePolicy
+  %w[index? edit? update? destroy? blocked? activated? add_admin? remove_admin?].each do |action|
+    define_method(action) do
+      @current_user.admin?
+    end
   end
 
-  def index?
-    @current_user.admin?
-  end
-
-  def destroy?
-    @current_user.admin?
-  end
-
-  def blocked?
-    @current_user.admin?
-  end
-
-  def activated?
-    @current_user.admin?
-  end
-
-  def add_admin?
-    @current_user.admin?
-  end
-
-  def remove_admin?
-    @current_user.admin?
-  end
-
-  def edit?
-    @user.id == @current_user.id
-  end
-
-  def update?
-    @user.id == @current_user.id
+  %w[edit? update?].each do |action|
+    define_method(action) do
+      @user.id == @current_user.id
+    end
   end
 end

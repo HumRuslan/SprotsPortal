@@ -1,28 +1,7 @@
-class Account::Admin::SubCategoryPolicy
-  attr_reader :current_user, :model
-
-  def initialize(current_user, model)
-    @current_user = current_user
-    @user = model
-  end
-
-  def new?
-    @current_user.admin?
-  end
-
-  def create?
-    @current_user.admin?
-  end
-
-  def destroy?
-    @current_user.admin?
-  end
-
-  def edit?
-    @current_user.admin?
-  end
-
-  def update?
-    @current_user.admin?
+class Account::Admin::SubCategoryPolicy < BasePolicy
+  %w[new? create? edit? update? destroy?].each do |action|
+    define_method(action) do
+      @current_user.admin?
+    end
   end
 end

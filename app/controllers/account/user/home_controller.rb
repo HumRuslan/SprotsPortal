@@ -1,5 +1,6 @@
 class Account::User::HomeController < Account::User::UserApplicationController
-  skip_before_action :authenticate_user!, only: %i[index show search articles_by_category]
+  skip_before_action :authenticate_user!, only: %i[index show search]
+
   def index
     search = search_params
     search[:filters] = { published: "published" }

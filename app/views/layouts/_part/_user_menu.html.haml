@@ -1,0 +1,10 @@
+.row
+  .col-md-12
+    = link_to 'Home', account_user_root_path, :class => "btn w-100 btn-light text-secondary my-2"
+    - Category.all.each do |category|
+      =form_for :search, url: search_account_user_article_index_path, method: :get do |f|
+        .d-none
+          =f.text_field :filters, {:class => "w-75 form-control", :name => "search[filters[published]]", :value => 'published'}
+          =f.text_field :filters, {:class => "w-75 form-control", :name => "search[filters[category_id]]", :value => category.id}
+        %button{:class => "btn w-100 btn-light text-secondary my-2", :type => "submit"}
+          = category.name

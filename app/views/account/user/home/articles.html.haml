@@ -1,0 +1,9 @@
+- @articles.each do |article|
+  .row.p-3
+    .col-md-4
+      %img{style: "height: 200px; object-fit: cover;", :src => article.picture.thumb.url}
+    .col-md-8
+      %h3= article.headline
+      %p
+        =article_short_content strip_tags(article.content), 50
+        =link_to 'More ...', account_user_article_path(id: article.id), :class => "font-italic"

@@ -24,7 +24,7 @@ class ArticleSearch
   def filter_string
     return match_all if @filters.blank? || @filters.compact_blank!.blank?
 
-    { term: @filters }
+    @filters.to_hash.each_with_object([]) { |(key, filter), result| result.push({ term: { key => filter } }) }
   end
 
   def order_string

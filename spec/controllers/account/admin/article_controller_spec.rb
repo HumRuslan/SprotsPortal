@@ -15,13 +15,19 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
       get :new
       expect(response).to render_template("new")
     end
+
+    it "hes get edit" do
+      get :edit, params: { id: article_create.id }
+      expect(response).to have_http_status(:ok)
+    end
   end
 
   describe "when admin create article" do
     login_admin
     it "has created article success and redirect to article page" do
+      article[:team_id] = article_create[:team_id]
       post :create, params: { article: article }
-      expect(Article.count).to eq 1
+      expect(Article.where(headline: article[:headline])).to have(1).records
       expect(response).to redirect_to(account_admin_article_index_path)
     end
 
@@ -43,6 +49,11 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
 
     it 'has get new' do
       get :new
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "hes get edit" do
+      get :edit, params: { id: article_create.id }
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -77,6 +88,30 @@ RSpec.describe Account::Admin::ArticleController, type: :controller do
     it 'has article not found' do
       delete :destroy, params: { id: 'not_found' }
       expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe "when admin update article" do
+    login_admin
+
+    it "has article is update" do
+      put :update, params: {
+        id: article_create.id,
+        article: {
+          headline: "headline"
+        }
+      }
+      expect(Article.where(headline: "headline")).to have(1).records
+    end
+
+    it "hasn't article is update" do
+      put :update, params: {
+        id: article_create.id,
+        article: {
+          headline: ""
+        }
+      }
+      expect(response).to render_template("new")
     end
   end
 end

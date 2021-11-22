@@ -69,6 +69,7 @@ group :test do
 
   # Add rspec-rails
   gem 'rails-controller-testing'
+  gem 'rspec-collection_matchers'
   gem "rspec-rails"
   gem 'rspec-sidekiq'
 end

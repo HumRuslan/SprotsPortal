@@ -5,8 +5,11 @@
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto.h-100
-      =form_for :search, url: (controller_path.split('/'))[1] == "admin" ? account_admin_article_index_path : account_user_article_index_path, method: :get do |f|
-        =f.text_field :query, style: "width: 500px; margin: 5px"
+      =form_for :search, url: (controller_path.split('/'))[1] == "admin" ? account_admin_article_index_path : search_account_user_article_index_path, method: :get do |f|
+        =f.text_field :query, {:style => "width: 500px; margin: 5px", :class => "form-control d-inline"}
+        - if (controller_path.split('/'))[1] != "admin"
+          .d-none
+            =f.text_field :filters, {:class => "w-75 form-control", :name => "search[filters[published]]", :value => 'published'}
         %button{:class => "btn btn-default", :type => "submit"}
           %i(class="bi bi-search")
     - if user_signed_in?

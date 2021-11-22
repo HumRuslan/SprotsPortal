@@ -27,11 +27,20 @@ Rails.application.routes.draw do
           put "unpublished"
         end
       end
+      resources :category, only: %i[index new create edit update destroy] do
+        resources :sub_category, only: %i[new create edit update destroy] do
+          resources :team, only: %i[new create edit update destroy]
+        end
+      end
     end
 
     namespace :user do
       root "home#index"
-      resources :article, controller: :home, only: %i[index show]
+      resources :article, controller: :home, only: %i[index show] do
+        collection do
+          get 'search'
+        end
+      end
       resources :user, controller: :profile, only: %i[edit update]
     end
   end

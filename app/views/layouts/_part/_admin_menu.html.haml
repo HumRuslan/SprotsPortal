@@ -12,7 +12,7 @@
   %li(class="nav-item m-2")
     =link_to raw("<h1 class=#{yield(:page)=='users' ? 'text-danger': 'text-secondary'}><i class='bi bi-people'></i></h1>"), account_admin_user_index_path
   %li(class="nav-item m-2")
-    =link_to raw("<h1 class=#{yield(:page)=='' ? 'text-danger': 'text-secondary'}><i class='bi bi-columns-gap'></i></h1>")
+    =link_to raw("<h1 class=#{yield(:page)=='category' ? 'text-danger': 'text-secondary'}><i class='bi bi-columns-gap'></i></h1>"), account_admin_category_index_path
   %li(class="nav-item m-2")
     =link_to raw("<h1 class=#{yield(:page)=='' ? 'text-danger': 'text-secondary'}><i class='bi bi-square'></i></h1>")
   %li(class="nav-item m-2")

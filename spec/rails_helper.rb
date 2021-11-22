@@ -1,7 +1,7 @@
 require 'simplecov'
 require 'rspec-sidekiq'
 require 'sidekiq/testing'
-require 'chewy/rspec'
+require 'rspec/collection_matchers'
 Sidekiq::Testing.inline!
 
 SimpleCov.start 'rails' do

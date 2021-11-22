@@ -1,16 +1,23 @@
 class ArticleSearch
   FIELDS = %i[headline caption content].freeze
 
-  attr_accessor :query, :filters, :orders
+  attr_accessor :query, :filters, :orders, :page, :per_page
 
   def initialize(params)
     @query = params[:query]
     @filters = params[:filters]
     @orders = params[:orders]
+    @page_current = params[:page]
+    @per_page_current = params[:per_page]
   end
 
   def result
-    ArticlesIndex.query(query_string).filter(filter_string).order(order_string).load
+    ArticlesIndex.query(query_string)
+                 .filter(filter_string)
+                 .order(order_string)
+                 .page(page_current)
+                 .per(per_page_current)
+                 .load
   end
 
   private
@@ -33,5 +40,13 @@ class ArticleSearch
 
   def match_all
     { match_all: {} }
+  end
+
+  def page_current
+    @page_current ||= 1
+  end
+
+  def per_page_current
+    @per_page_current ||= 5
   end
 end

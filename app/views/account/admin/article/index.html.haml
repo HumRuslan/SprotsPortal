@@ -13,6 +13,7 @@
           .field= f.select :filters, options_from_collection_for_select(@category, 'id', 'name'), {include_blank: true}, {:class => "w-75 form-control", :name => "search[filters[category_id]]"}
         .col-md-4.form-group
           .field= f.select :filters, options_for_select([["All", ""], ["unpublished","unpublished"], ["published", "published"]]), {}, {:class => "w-75 form-control", :name => "search[filters[published]]"}
+= paginate @articles, param_name: "search[page]", theme: 'twitter-bootstrap-4', pagination_class: "justify-content-center"
 - @articles.each do |article|
   .row.p-3
     .col-md-12.text-right
@@ -28,10 +29,9 @@
             = link_to "unpublished", unpublished_account_admin_article_path(id: article.id), method: :put, :class => "dropdown-item"
           - else
             = link_to "published", published_account_admin_article_path(id: article.id), method: :put, :class => "dropdown-item"
-          = link_to "edit", edit_account_admin_article_path(id: article.id), :class => "dropdown-item"
           = link_to "delete", account_admin_article_path(id: article.id), method: :delete, :class => "dropdown-item", :data => {:confirm => 'Are you sure?'}
     .col-md-4
-      %img{style: "height: 200px; object-fit: cover;", :src => article.picture.thumb.url}
+      %img{style: "height: 200px; object-fit: contain;", :src => article.picture.thumb.url}
     .col-md-8
       %h3= article.headline
       %p

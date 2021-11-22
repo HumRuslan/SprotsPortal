@@ -1,3 +1,4 @@
+= paginate @articles, params: {controller: 'account/user/home', action: 'search'}, param_name: "search[page]", theme: 'twitter-bootstrap-4', pagination_class: "justify-content-center"
 - @articles.each do |article|
   .row.p-3
     .col-md-4

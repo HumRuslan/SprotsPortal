@@ -1,0 +1,20 @@
+#admins_table
+  =page_entries_info @admins, entry_name: 'item'
+  =paginate @admins, param_name: "admins_page", theme: 'twitter-bootstrap-4', pagination_class: "justify-content-center"
+  %table{:class => "table"}
+    %thead(class="table-secondary")
+      %tr(class="text-center" )
+        %th{ scope: "col", class: "w-50"} ADMIN
+        %th(scope="col") Status
+        %th(scope="col") Actions
+    %tbody
+
+      - @admins.each do |admin|
+        %tr(scope="row")
+          %td
+            =admin.full_name
+            =admin.online? ? raw('<sub class="bg-success">online</sub>') : raw('<sub class="bg-secondary">offline</sub>')
+          %td
+            %span(class='text-success') Active
+          %td(class="text-center")
+            =link_to "Remove from Admin", remove_admin_account_admin_user_path(id: admin.id), method: :put, :class => "btn btn-danger w-100 btn-sm"

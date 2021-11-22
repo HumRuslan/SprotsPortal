@@ -1,0 +1,38 @@
+#users_table
+  =page_entries_info @users, entry_name: 'item'
+  =paginate @users, param_name: "users_page", theme: 'twitter-bootstrap-4', pagination_class: "justify-content-center"
+  %table{:class => "table"}
+    %thead(class="table-secondary")
+      %tr(class="text-center" )
+        %th{ scope: "col", class: "w-50"}=sort_link(@q, :first_name, %i(first_name last_name), 'Name')
+        %th(scope="col")=sort_link(@q, :locked_at,'Status')
+        %th(scope="col") Actions
+    %tbody
+      - @users.each do |user|
+        %tr(scope="row")
+          %td
+            =user.full_name
+            =user.online? ? raw('<sub class="bg-success">online</sub>') : raw('<sub class="bg-secondary">offline</sub>')
+          %td= !user.access_locked? ? raw("<span class='text-success'>Active</span>") : "Blocked"
+          %td(class="text-center")
+            -if !user.access_locked?
+              %div(class="dropdown")
+                %a{:class => "btn btn-secondary dropdown-toggle btn-sm w-100",
+                      :type => "button btn-sm",
+                      :id => "dropdownMenuButton",
+                      "data-toggle" => "dropdown",
+                      :aria-expanded => "false"} Actions
+                %div(class="dropdown-menu p-0 w-100" aria-labelledby="dropdownMenuButton")
+                  =link_to "Block", blocked_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-secondary text-white"
+                  =link_to "Make as Admin", add_admin_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-success text-white"
+                  =link_to "Delete", account_admin_user_path(id: user.id), method: :delete, :class => "dropdown-item bg-danger text-white"
+            -else
+              %div(class="dropdown")
+                %a{:class => "btn btn-secondary dropdown-toggle btn-sm w-100",
+                      :type => "button btn-sm",
+                      :id => "dropdownMenuButton",
+                      "data-toggle" => "dropdown",
+                      :aria-expanded => "false"} Actions
+                %div(class="dropdown-menu p-0 w-100" aria-labelledby="dropdownMenuButton")
+                  =link_to "Activate", activated_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-success text-white"
+                  =link_to "Delete", account_admin_user_path(id: user.id), method: :delete, :class => "dropdown-item bg-danger text-white"

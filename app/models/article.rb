@@ -6,5 +6,7 @@ class Article < ApplicationRecord
 
   belongs_to :team, inverse_of: :articles
 
+  paginates_per 5
+
   update_index('articles') { self }
 end

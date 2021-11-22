@@ -7,55 +7,5 @@
         \#{f.search_field :user_cont}
         %button{:class => "btn btn-default", :type => "submit"}
           %i(class="bi bi-search")
-    %table{:class => "table", :id => "users_table"}
-      %thead(class="table-secondary")
-        %tr(class="text-center" )
-          %th{ scope: "col", class: "w-50"}=sort_link(@q, :first_name, %i(first_name last_name), 'Name')
-          %th(scope="col")=sort_link(@q, :locked_at,'Status')
-          %th(scope="col") Actions
-      %tbody
-        - @users.each do |user|
-          %tr(scope="row")
-            %td
-              =user.full_name
-              =user.online? ? raw('<sub class="bg-success">online</sub>') : raw('<sub class="bg-secondary">offline</sub>')
-            %td= !user.access_locked? ? raw("<span class='text-success'>Active</span>") : "Blocked"
-            %td(class="text-center")
-              -if !user.access_locked?
-                %div(class="dropdown")
-                  %a{:class => "btn btn-secondary dropdown-toggle btn-sm w-100",
-                      :type => "button btn-sm",
-                      :id => "dropdownMenuButton",
-                      "data-toggle" => "dropdown",
-                      :aria-expanded => "false"} Actions
-                  %div(class="dropdown-menu p-0 w-100" aria-labelledby="dropdownMenuButton")
-                    =link_to "Block", blocked_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-secondary text-white"
-                    =link_to "Make as Admin", add_admin_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-success text-white"
-                    =link_to "Delete", account_admin_user_path(id: user.id), method: :delete, :class => "dropdown-item bg-danger text-white"
-              -else
-                %div(class="dropdown")
-                  %a{:class => "btn btn-secondary dropdown-toggle btn-sm w-100",
-                      :type => "button btn-sm",
-                      :id => "dropdownMenuButton",
-                      "data-toggle" => "dropdown",
-                      :aria-expanded => "false"} Actions
-                  %div(class="dropdown-menu p-0 w-100" aria-labelledby="dropdownMenuButton")
-                    =link_to "Activate", activated_account_admin_user_path(id: user.id), method: :put, :class => "dropdown-item bg-success text-white"
-                    =link_to "Delete", account_admin_user_path(id: user.id), method: :delete, :class => "dropdown-item bg-danger text-white"
-
-    %table{:class => "table", :id => "admins_table"}
-      %thead(class="table-secondary")
-        %tr(class="text-center" )
-          %th{ scope: "col", class: "w-50"} ADMIN
-          %th(scope="col") Status
-          %th(scope="col") Actions
-      %tbody
-        - @admins.each do |admin|
-          %tr(scope="row")
-            %td
-              =admin.full_name
-              =admin.online? ? raw('<sub class="bg-success">online</sub>') : raw('<sub class="bg-secondary">offline</sub>')
-            %td
-              %span(class='text-success') Active
-            %td(class="text-center")
-              =link_to "Remove from Admin", remove_admin_account_admin_user_path(id: admin.id), method: :put, :class => "btn btn-danger w-100 btn-sm"
+    =render "account/admin/user/_part/user"
+    =render "account/admin/user/_part/admin"

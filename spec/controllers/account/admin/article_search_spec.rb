@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Account::Admin::ArticleController, type: :controller do
-  before do
+  around(:each) do |each|
     article
     ArticlesIndex.import!
-  end
-
-  after do
+    each.run
     ArticlesIndex.delete
     ArticlesIndex.create!
   end

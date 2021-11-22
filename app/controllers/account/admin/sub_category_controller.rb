@@ -2,8 +2,7 @@ class Account::Admin::SubCategoryController < Account::Admin::AdminApplicationCo
   before_action :find_sub_category, only: %i[edit destroy update]
 
   def new
-    @sub_category = SubCategory.new
-    @sub_category.category_id = params[:category_id]
+    @sub_category = Category.find(params[:category_id]).sub_categories.build
     authorize([:account, :admin, @sub_category])
     response_is
   end

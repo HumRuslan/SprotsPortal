@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Account::User::HomeController, type: :controller do
-  after do
-    ArticlesIndex.delete
-    ArticlesIndex.create!
-  end
-
   before do
     article
     ArticlesIndex.import!
+  end
+
+  after do
+    ArticlesIndex.delete
+    ArticlesIndex.create!
   end
 
   let!(:article) { FactoryBot.create :article, :published }

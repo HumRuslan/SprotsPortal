@@ -2,9 +2,8 @@ class Account::Admin::TeamController < Account::Admin::AdminApplicationControlle
   before_action :find_team, only: %i[edit destroy update]
 
   def new
-    @team = Team.new
+    @team = SubCategory.find(params[:sub_category_id]).teams.build
     @category = params[:category_id]
-    @team.sub_category_id = params[:sub_category_id]
     authorize([:account, :admin, @team])
     response_is
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Account::User::HomeController, type: :controller do
-  after(:each) do
+  after do
     ArticlesIndex.delete
     ArticlesIndex.create!
   end
@@ -12,14 +12,14 @@ RSpec.describe Account::User::HomeController, type: :controller do
     it "has article" do
       article
       ArticlesIndex.import!
-      get :articles_by_category, params: {id: article.team.sub_category.category_id}
+      get :articles_by_category, params: { id: article.team.sub_category.category_id }
       expect(assigns(:articles).count).to be > 0
     end
 
     it "hasn't article" do
       article
       ArticlesIndex.import!
-      get :articles_by_category, params: {id: "not_found"}
+      get :articles_by_category, params: { id: "not_found" }
       expect(assigns(:articles).count).to eq 0
     end
   end

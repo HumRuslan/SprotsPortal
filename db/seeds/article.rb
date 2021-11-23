@@ -1,3 +1,4 @@
 10.times do
-  factory = FactoryBot.create :article
+  article = FactoryBot.build :article
+  article.save
 end

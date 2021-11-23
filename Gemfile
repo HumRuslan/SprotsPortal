@@ -79,6 +79,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Add Boostrap and sass
 gem 'bootstrap', '~> 4.6.0'
+gem 'bootstrap4-kaminari-views'
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem "jquery-rails"
 gem 'popper_js'
@@ -96,6 +97,9 @@ gem 'carrierwave-aws'
 gem 'chewy'
 gem 'ckeditor'
 gem 'devise'
+gem 'elasticsearch'
+gem 'elasticsearch-extensions'
+gem 'kaminari'
 gem 'mini_magick'
 gem 'pundit'
 gem 'ransack'

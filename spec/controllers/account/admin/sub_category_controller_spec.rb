@@ -65,11 +65,11 @@ RSpec.describe Account::Admin::SubCategoryController, type: :controller do
         id: sub_category_create.id,
         category_id: sub_category_create.category_id,
         sub_category: {
-          name: sub_category[:name],
+          name: "SOME_NAME",
           category_id: sub_category_create.category_id
         }
       }, xhr: true
-      expect(SubCategory.where(name: sub_category[:name])).to have(1).records
+      expect(SubCategory.where(name: "SOME_NAME")).to have(1).records
       expect(response).to have_http_status(:ok)
     end
 

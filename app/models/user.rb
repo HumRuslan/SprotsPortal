@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   ransack_alias :user, :first_name_or_last_name
 
+  paginates_per 10
+
   def full_name
     "#{first_name} #{last_name}"
   end

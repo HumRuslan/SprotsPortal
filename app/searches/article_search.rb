@@ -17,8 +17,8 @@ class ArticleSearch
     ArticlesIndex.query(query_string)
                  .filter(filter_string)
                  .order(order_string)
-                 .page(@page)
-                 .per(@per_page)
+                 .page(page)
+                 .per(per_page)
                  .load
   end
 

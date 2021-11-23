@@ -1,3 +1,6 @@
+= form_tag account_admin_article_index_path, method: :get, id: 'limit_form' do
+  %label Items of page
+  =select_tag :limit, options_for_select([5, 10, 15, 20], selected: params[:search].blank? ? 10 : params[:search][:per_page] || 10), onchange: "$('#limit_form').submit();", name: "search[per_page]", :class => "w-25 form-control"
 = paginate @articles, params: {controller: 'account/user/home', action: 'search'}, param_name: "search[page]", theme: 'twitter-bootstrap-4', pagination_class: "justify-content-center"
 - @articles.each do |article|
   .row.p-3

@@ -3,22 +3,22 @@ class ArticleSearch
   DEFAULT_PAGE = 1
   DEFAULT_PER_PAGE = 5
 
-  attr_accessor :query, :filters, :orders
+  attr_accessor :query, :filters, :orders, :page, :per_page
 
   def initialize(params)
     @query = params[:query]
     @filters = params[:filters]
     @orders = params[:orders]
-    @page_current = params[:page] || DEFAULT_PAGE
-    @per_page_current = params[:per_page] || DEFAULT_PER_PAGE
+    @page = params[:page] || DEFAULT_PAGE
+    @per_page = params[:per_page] || DEFAULT_PER_PAGE
   end
 
   def result
     ArticlesIndex.query(query_string)
                  .filter(filter_string)
                  .order(order_string)
-                 .page(@page_current)
-                 .per(@per_page_current)
+                 .page(@page)
+                 .per(@per_page)
                  .load
   end
 

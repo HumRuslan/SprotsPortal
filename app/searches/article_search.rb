@@ -1,9 +1,7 @@
 class ArticleSearch
   FIELDS = %i[headline caption content].freeze
-  INITIAL_PAGINATE = {
-    page: 1,
-    per_page: 5
-  }.freeze
+  DEFAULT_PAGE = 1
+  DEFAULT_PER_PAGE = 5
 
   attr_accessor :query, :filters, :orders
 
@@ -11,16 +9,16 @@ class ArticleSearch
     @query = params[:query]
     @filters = params[:filters]
     @orders = params[:orders]
-    @page_current = params[:page]
-    @per_page_current = params[:per_page]
+    @page_current = params[:page] || DEFAULT_PAGE
+    @per_page_current = params[:per_page] || DEFAULT_PER_PAGE
   end
 
   def result
     ArticlesIndex.query(query_string)
                  .filter(filter_string)
                  .order(order_string)
-                 .page(page_current)
-                 .per(per_page_current)
+                 .page(@page_current)
+                 .per(@per_page_current)
                  .load
   end
 
@@ -44,13 +42,5 @@ class ArticleSearch
 
   def match_all
     { match_all: {} }
-  end
-
-  def page_current
-    @page_current ||= INITIAL_PAGINATE[:page]
-  end
-
-  def per_page_current
-    @per_page_current ||= INITIAL_PAGINATE[:per_page]
   end
 end

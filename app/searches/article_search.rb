@@ -1,7 +1,11 @@
 class ArticleSearch
   FIELDS = %i[headline caption content].freeze
+  INITIAL_PAGINATE = {
+    page: 1,
+    per_page: 5
+  }.freeze
 
-  attr_accessor :query, :filters, :orders, :page, :per_page
+  attr_accessor :query, :filters, :orders
 
   def initialize(params)
     @query = params[:query]
@@ -43,10 +47,10 @@ class ArticleSearch
   end
 
   def page_current
-    @page_current ||= 1
+    @page_current ||= INITIAL_PAGINATE[:page]
   end
 
   def per_page_current
-    @per_page_current ||= 5
+    @per_page_current ||= INITIAL_PAGINATE[:per_page]
   end
 end

@@ -1,0 +1,22 @@
+-provide(:page, 'article')
+.row
+  .col-md-8.offset-md-2
+    .col-md-12.text-right
+      =link_to "Back", account_admin_article_index_path, :class => "btn btn-danger w-25"
+    .col-md-12.text-center
+      %h1= @article.headline
+    .col-md-12.w-100
+      %img.d-block.w-100{:alt => @article.alt_picture, :src => @article.picture.url}
+    .col-md-12.text-center.m-2.text-secondary
+      %h4= @article.caption
+    .col-md-12.text-right.text-secondary
+      %h6
+        - if @article.published?
+          published
+          = human_timestamps @article.updated_at
+        - else
+          unpublished
+          = human_timestamps @article.updated_at
+    .col-md-12
+      = raw(@article.content)
+

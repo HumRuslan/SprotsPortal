@@ -27,11 +27,7 @@ class User < ApplicationRecord
   end
 
   def online?
-    if current_sign_in_at.present?
-      last_sign_out_at.present? ? current_sign_in_at > last_sign_out_at : true
-    else
-      false
-    end
+    last_sign_out_at.present? ? last_sign_out_at > Time.current : false
   end
 
   private

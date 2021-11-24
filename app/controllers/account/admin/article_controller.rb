@@ -1,5 +1,5 @@
 class Account::Admin::ArticleController < Account::Admin::AdminApplicationController
-  before_action :find_article, only: %i[published unpublished destroy edit update]
+  before_action :find_article, only: %i[published unpublished destroy edit update show]
 
   def index
     @category = Category.all
@@ -7,6 +7,8 @@ class Account::Admin::ArticleController < Account::Admin::AdminApplicationContro
     @articles = @search.result.objects
     authorize(@articles, policy_class: Account::Admin::ArticlePolicy)
   end
+
+  def show; end
 
   def new
     @article = Article.new

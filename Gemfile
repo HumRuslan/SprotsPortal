@@ -104,5 +104,6 @@ gem 'mini_magick'
 gem 'pundit'
 gem 'ransack'
 gem 'redis'
+gem 'rollbar'
 gem 'sidekiq'
 gem "sidekiq-cron"

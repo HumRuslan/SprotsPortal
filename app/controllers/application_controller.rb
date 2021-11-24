@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :session_save
+
   rescue_from Pundit::NotAuthorizedError, with: :user_access_denied
   rescue_from ActiveRecord::RecordNotFound, with: :not_found_record
 
@@ -28,5 +30,9 @@ class ApplicationController < ActionController::Base
   def not_found_record
     flash["alert"] = 'Record not found'
     render file: "public/404.html", status: :not_found
+  end
+
+  def session_save
+    current_user&.update_attribute(:last_sign_out_at, 5.minutes.from_now(Time.current))
   end
 end

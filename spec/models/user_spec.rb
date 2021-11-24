@@ -6,4 +6,8 @@ RSpec.describe User, type: :model do
   it 'has full_name' do
     expect(user.full_name).to match("#{user.first_name} #{user.last_name}")
   end
+
+  it 'has offline user' do
+    expect(user.online?).to be false
+  end
 end

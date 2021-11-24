@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Account::Admin::ArticlePolicy do
   subject { described_class }
 
-  permissions :index?, :new?, :create?, :published?, :unpublished?, :destroy? do
+  permissions :index?, :new?, :create?, :published?, :unpublished?, :destroy?, :show? do
     it "denies access if user login as user" do
       expect(subject).not_to permit(User.new(role: 0), User.all)
     end

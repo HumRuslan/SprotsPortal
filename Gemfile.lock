@@ -331,6 +331,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rollbar (3.3.0)
     rspec-collection_matchers (1.2.0)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.10.1)
@@ -509,6 +510,7 @@ DEPENDENCIES
   rails_best_practices
   ransack
   redis
+  rollbar
   rspec-collection_matchers
   rspec-rails
   rspec-sidekiq

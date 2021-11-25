@@ -5,7 +5,7 @@ uk:
     models:
       user:
         one: "користувач"
-        many: 'користувачів'
+        many: "користувачів"
         zero: "користувачів"
   helpers:
     page_entries_info:

@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
+  devise_for :users, only: :omniauth_callbacks, controllers: {
+    omniauth_callbacks: 'auth/omniauth_callbacks'
+  }
+
   scope '(:locale)' do
     devise_scope :user do
       root "account/user/home#index"
     end
 
-    devise_for :users, controllers: {
+    devise_for :users, skip: :omniauth_callbacks, controllers: {
       registrations: 'auth/registrations',
       sessions: 'auth/sessions'
     }

@@ -2,11 +2,12 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :registerable,
          :recoverable,
-         :rememberable,
          :confirmable,
          :validatable,
          :lockable,
-         :trackable
+         :trackable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
+
   mount_uploader :avatar, AvatarUploader
 
   enum role: { user: 0, admin: 1 }

@@ -4,8 +4,9 @@
     %ul#pills-tab.nav.nav-pills.mb-3{:role => "tablist"}
       %li.nav-item.w-25.text-center.text-dark.shadow{:role => "presentation"}
         %a#pills-home-tab.nav-link.active{"aria-controls" => "pills-home", "aria-selected" => "true", "data-toggle" => "pill", :href => "#pills-home", :role => "tab", :id => "page_profile"} Person
-      %li.nav-item.w-25.text-center.text-dark.shadow{:role => "presentation"}
-        %a#pills-contact-tab.nav-link{"aria-controls" => "pills-contact", "aria-selected" => "false", "data-toggle" => "pill", :href => "#pills-profile", :role => "tab", :id => "page_password"} Change password
+      - unless current_user.ext_service?
+        %li.nav-item.w-25.text-center.text-dark.shadow{:role => "presentation"}
+          %a#pills-contact-tab.nav-link{"aria-controls" => "pills-contact", "aria-selected" => "false", "data-toggle" => "pill", :href => "#pills-profile", :role => "tab", :id => "page_password"} Change password
     #pills-tabContent.tab-content
       #pills-home.tab-pane.fade.show.active{"aria-labelledby" => "pills-home-tab", :role => "tabpanel"}
         .col-md-6.offset-md-3

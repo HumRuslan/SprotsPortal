@@ -8,6 +8,8 @@
         = link_to 'Get Started', new_user_registration_path, class: "btn border-danger text-danger b-0 w-25"
       %h2(class="text-center m-5 p-5 w-100" ) Log in to Sports Hub
       %div(class="col-md-12")
+        .col-md-12.m-2
+          = link_to raw('<i class="bi bi-google p-1" style="font-size: 2rem; color: black; border: solid black; border-radius: 50%"></i>'), user_google_oauth2_omniauth_authorize_path
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           .form-inputs
             = f.input :email,

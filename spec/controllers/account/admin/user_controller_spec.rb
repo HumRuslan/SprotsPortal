@@ -23,7 +23,7 @@ RSpec.describe Account::Admin::UserController, type: :controller do
 
     it 'has not redirect to users' do
       get :index
-      expect(response).to redirect_to(new_user_session_path)
+      expect(response).to have_http_status(:redirect)
     end
   end
 

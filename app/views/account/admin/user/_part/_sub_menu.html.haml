@@ -1,7 +1,7 @@
 %h6{:class => "mr-5 mt-3 d-inline"}
-  %a{:id => 'users_link', :href => "#"} USERS(#{@users.total_count})
+  %a{:id => 'users_link', :href => "#"}= "#{t('.users')}(#{@users.total_count})"
 %h6{:class => "mr-5 mt-3 d-inline"}
-  %a{:id => 'admins_link', :href => "#"} ADMINS(#{@admins.total_count})
+  %a{:id => 'admins_link', :href => "#"}="#{t('.admins')}(#{@admins.total_count})"
 
 :javascript
   function getCookie(name) {

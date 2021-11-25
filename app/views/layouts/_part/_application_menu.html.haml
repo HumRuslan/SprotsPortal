@@ -12,6 +12,20 @@
             =f.text_field :filters, {:class => "w-75 form-control", :name => "search[filters[published]]", :value => 'published'}
         %button{:class => "btn btn-default", :type => "submit"}
           %i(class="bi bi-search")
+
+    %div(class="dropdown")
+      %a{:class => "btn dropdown-toggle button btn-sm",
+                    :id => "dropdownMenuButton",
+                    "data-toggle" => "dropdown",
+                    :aria-expanded => "false"}
+        %div(class="d-inline" )
+          =t I18n.locale
+      %ul(class="dropdown-menu default p-0 m-0" style="min-width: 0")
+        - I18n.available_locales.each do |locale|
+          - unless I18n.locale == locale
+            %div
+              =link_to t(locale), url_for(locale: locale), class: 'dropdown-item'
+
     - if user_signed_in?
       - if current_user.admin?
         %div{ :class => "rounded-circle bg-danger" }
@@ -37,7 +51,6 @@
         %div(class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton")
           =link_to 'Edit profile', edit_account_user_user_path(id: current_user.id), :method => :get, :class => "btn btn-small"
           =link_to 'Log out', destroy_user_session_path, :method => :delete, :class => "btn btn-small"
-
     - else
       = link_to 'Sign in', new_user_session_path, :class => "btn btn-small text-danger"
       = link_to 'Sign up', new_user_registration_path, :class => "btn btn-small text-danger"

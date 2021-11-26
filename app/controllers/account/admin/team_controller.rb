@@ -43,13 +43,9 @@ class Account::Admin::TeamController < Account::Admin::AdminApplicationControlle
 
   def upload_csv
     authorize(%i[account admin team])
-    if request.post? && params[:file].present?
-      upload = Account::Admin::UploadFile.new(params).upload
-      flash[:alert] = upload[:message_error] if upload[:message_error].present?
-      flash[:notice] = "Upload was finished"
-    else
-      flash[:alert] = "Error to upload file"
-    end
+    upload = Account::Admin::UploadFile.new(params).upload
+    flash[:notice] = "Upload was finished" if upload[:success]
+    flash[:alert] = upload[:message_error] if upload[:message_error].present?
     redirect_to account_admin_category_index_url
   end
 

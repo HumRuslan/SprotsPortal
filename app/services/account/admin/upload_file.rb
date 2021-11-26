@@ -3,33 +3,30 @@ class Account::Admin::UploadFile
 
   def initialize(params)
     @category_id = params[:category_id]
-    @path = params[:file].path
+    @path = params[:file]
     @message_error = ''
+    @teams = []
   end
 
   def upload
-    teams = []
-    CSV.foreach(path, headers: true).with_index do |row, index|
+    return { success: false, message_error: "Bad request. Upload failed" } if category_id.blank? || path.blank?
+
+    sub_category_hash = SubCategory.where(category_id: category_id).pluck(:name, :id).to_h
+    CSV.foreach(path.path, headers: true).with_index do |row, index|
       next unless check row, index
 
-      sub_category_hash = SubCategory.pluck(:name, :id).to_h
       unless sub_category_hash.key? row["subcategory"]
-        SubCategory.create(name: row["subcategory"], category_id: category_id)
-        sub_category_hash = SubCategory.pluck(:name, :id).to_h
+        sub_category = SubCategory.create(name: row["subcategory"], category_id: category_id)
+        sub_category_hash[sub_category.name] = sub_category.id
       end
-      teams << { name: row["team"],
-                 sub_category_id: sub_category_hash[row["subcategory"]],
-                 description: row["description"] }
+
+      @teams << { name: row["team"],
+                  sub_category_id: sub_category_hash[row["subcategory"]],
+                  description: row["description"] }
     end
 
-    teams.each_slice(50) do |item|
-      Team.import item, on_duplicate_key_ignore: true
-    end
-    if @message_error.blank?
-      { message_error: '' }
-    else
-      { message_error: @message_error }
-    end
+    save_db
+    response
   end
 
   private
@@ -41,6 +38,20 @@ class Account::Admin::UploadFile
       false
     else
       true
+    end
+  end
+
+  def save_db
+    @teams.each_slice(50) do |item|
+      Team.import item, on_duplicate_key_ignore: true, validate: false
+    end
+  end
+
+  def response
+    if @message_error.blank?
+      { success: true, message_error: '' }
+    else
+      { success: true, message_error: @message_error }
     end
   end
 end

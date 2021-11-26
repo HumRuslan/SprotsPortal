@@ -6,12 +6,6 @@ require 'csv'
 
 require 'activerecord-import/base'
 
-if Rails.env.production?
-  require 'activerecord-import/active_record/adapters/postgresql_adapter'
-else
-  require 'activerecord-import/active_record/adapters/mysql2_adapter'
-end
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

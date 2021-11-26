@@ -92,6 +92,7 @@ gem 'simple_form_fancy_uploads'
 # Add Haml
 gem 'haml'
 
+gem 'activerecord-import'
 gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'chewy'

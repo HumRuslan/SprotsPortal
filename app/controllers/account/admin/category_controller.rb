@@ -7,28 +7,36 @@ class Account::Admin::CategoryController < Account::Admin::AdminApplicationContr
   end
 
   def new
-    @category = Category.new
-    authorize([:account, :admin, @category])
-    response_is
+    run Category::Create::Present
+    authorize([:account, :admin, @model])
+    response_js
   end
 
   def create
-    @category = Category.new(category_params)
-    flash[:alert] = "Error to create category" unless @category.save
+    run Category::Create do |_result|
+      flash[:notice] = "Category was created"
+      return redirect_to account_admin_category_index_url
+    end
+    flash[:alert] = "Error to create category"
     redirect_to account_admin_category_index_url
   end
 
   def edit
-    response_is
+    run Category::Update::Present
+    response_js
   end
 
   def update
-    flash[:alert] = "Error to update category" unless @category.update(category_params)
+    run Category::Update do |_result|
+      flash[:notice] = "Category was updated"
+      return redirect_to account_admin_category_index_url
+    end
+    flash[:alert] = "Error to update category"
     redirect_to account_admin_category_index_url
   end
 
   def destroy
-    @category.destroy
+    run Category::Delete
     redirect_to account_admin_category_index_url
   end
 
@@ -43,9 +51,13 @@ class Account::Admin::CategoryController < Account::Admin::AdminApplicationContr
     authorize([:account, :admin, @category])
   end
 
-  def response_is
+  def response_js
     respond_to do |format|
       format.js
     end
+  end
+
+  def _run_options(options)
+    options.merge("current_user" => current_user)
   end
 end

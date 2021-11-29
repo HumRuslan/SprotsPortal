@@ -110,3 +110,11 @@ gem 'redis'
 gem 'rollbar'
 gem 'sidekiq'
 gem "sidekiq-cron"
+
+gem "dry-validation"
+
+gem "cells-rails"
+gem "cells-slim"
+gem "trailblazer"
+gem "trailblazer-cells"
+gem "trailblazer-rails"

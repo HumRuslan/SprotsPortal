@@ -37,6 +37,8 @@ Rails.application.routes.draw do
             resources :team, only: %i[new create edit update destroy]
           end
         end
+        get 'download/csv', to: 'team#download_csv'
+        post 'upload/csv', to: 'team#upload_csv'
       end
 
       namespace :user do

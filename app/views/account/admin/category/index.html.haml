@@ -1,14 +1,39 @@
 -provide(:page, 'category')
 .row
   -# Category column
+  .col-md-12.text-right.p-1
+    =link_to 'Download CSV', account_admin_download_csv_path(:format => "csv"), class: "btn btn-light"
+    %button.btn.btn-danger{"data-target" => "#fileModal", "data-toggle" => "modal", :type => "button"} Upload CSV
   .col-md-4
     =link_to "+ Add category", new_account_admin_category_path, {:remote => true,"data-target" => "#myModal", "data-toggle" => "modal", "class" => "btn btn-light w-100 text-secondary border-secondary p-4", :style => "border: dashed;"}
+
+    #fileModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :tabindex => "-1"}
+      .modal-dialog
+        .modal-content
+          %form{:action => account_admin_upload_csv_path, :enctype => "multipart/form-data", :method => "post"}
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            .modal-header
+              %h5#exampleModalLabel.modal-title Upload file CSV
+              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                %span{"aria-hidden" => "true"} ×
+            .modal-body
+              .form-group.d-none
+                %input#file-category-id.form-control{:name => "category_id", :type => "number"}/
+              .form-group
+                %label{:for => "file"} Upload file
+                %input#file-input.form-control-file{:name => "file", :type => "file", :accept => ".csv"}
+            .modal-footer
+              %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
+              %button.btn.btn-danger{:type => "submit"} Upload
+
+
+
     #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog"}
       .modal-dialog{:role => "document"}
         .modal-content
     #v-pills-tab-category.nav.flex-column.nav-pills.w-100.mt-5{"aria-orientation" => "vertical", :role => "tablist"}
       - @categories.each_with_index do |category, index|
-        .nav-link.w-100.my-2.btn.btn-light.text-secondary.category-button{:id => "v-pills-category-#{category.id}-tab", "aria-controls" => "v-pills-category-#{category.id}", "aria-selected" => "true", "data-toggle" => "pill", :href => "#v-pills-subcategory#{category.id}", :role => "tab"}
+        .nav-link.w-100.my-2.btn.btn-light.text-secondary.category-button{:id => "v-pills-category-#{category.id}-tab", "aria-controls" => "v-pills-category-#{category.id}", "aria-selected" => "true", "data-toggle" => "pill", :href => "#v-pills-subcategory#{category.id}", :role => "tab", :value => category.id}
           .w-100.text-right
             %div(class="dropdown" )
               %a{:class => "text-danger btn p-0",
@@ -75,6 +100,7 @@
   })
 
   $('.category-button').click(function(){
+    $('#file-category-id').val($(this).attr('value'))
     var sub_category = $(this).attr('href');
     $('.tab-team.active').removeClass('active');
     setCookie('category-button', $(this).attr('id'));

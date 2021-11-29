@@ -26,7 +26,7 @@ class Account::Admin::UploadFile
     end
 
     save_db
-    response
+    { success: true, message_error: @message_error }
   end
 
   private
@@ -44,14 +44,6 @@ class Account::Admin::UploadFile
   def save_db
     @teams.each_slice(50) do |item|
       Team.import item, on_duplicate_key_ignore: true, validate: false
-    end
-  end
-
-  def response
-    if @message_error.blank?
-      { success: true, message_error: '' }
-    else
-      { success: true, message_error: @message_error }
     end
   end
 end

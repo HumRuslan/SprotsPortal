@@ -31,12 +31,12 @@ RSpec.describe Account::Admin::CategoryController, type: :controller do
 
     it "has get new" do
       get :new, xhr: true
-      expect(response).to have_http_status(:unauthorized)
+      expect(flash[:alert]).to be_present
     end
 
     it "has get update" do
       get :edit, params: { id: category_create.id }, xhr: true
-      expect(response).to have_http_status(:unauthorized)
+      expect(flash[:alert]).to be_present
     end
   end
 
@@ -49,8 +49,8 @@ RSpec.describe Account::Admin::CategoryController, type: :controller do
     end
 
     it "hasn't create new category" do
-      post :create, params: { category: { name: "" } }
-      expect(flash[:alert]).to be_present
+      post :create, params: { category: { name: "" } }, xhr: true
+      expect(assigns(:model).errors).to be_present
     end
   end
 
@@ -65,8 +65,8 @@ RSpec.describe Account::Admin::CategoryController, type: :controller do
     end
 
     it "hasn't update category" do
-      post :update, params: { id: category_create.id, category: { name: "" } }
-      expect(flash[:alert]).to be_present
+      post :update, params: { id: category_create.id, category: { name: "" } }, xhr: true
+      expect(assigns(:model).errors).to be_present
     end
   end
 
@@ -79,7 +79,7 @@ RSpec.describe Account::Admin::CategoryController, type: :controller do
 
     it 'has category not found' do
       delete :destroy, params: { id: 'not_found' }, xhr: true
-      expect(response).to have_http_status(:not_found)
+      expect(flash[:alert]).to be_present
     end
   end
 end

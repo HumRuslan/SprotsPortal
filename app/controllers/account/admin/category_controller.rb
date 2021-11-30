@@ -6,8 +6,11 @@ class Account::Admin::CategoryController < Account::Admin::AdminApplicationContr
 
   def new
     run Category::Create::Present
-    authorize([:account, :admin, @model])
     response_js
+    unless result.success?
+      flash[:alert] = result["result.errors"][:message]
+      render :error
+    end
   end
 
   def create
@@ -23,7 +26,10 @@ class Account::Admin::CategoryController < Account::Admin::AdminApplicationContr
   def edit
     result = run Category::Update::Present
     response_js
-    return render :not_found unless result.success?
+    unless result.success?
+      flash[:alert] = result["result.errors"][:message]
+      render :error
+    end
   end
 
   def update
@@ -38,7 +44,11 @@ class Account::Admin::CategoryController < Account::Admin::AdminApplicationContr
 
   def destroy
     result = run Category::Delete
-    raise ActiveRecord::RecordNotFound unless result.success?
+    if result.success?
+      flash[:notice] = "Category was deleted"
+    else
+      flash[:alert] = result["result.errors"][:message]
+    end
 
     redirect_to account_admin_category_index_url
   end

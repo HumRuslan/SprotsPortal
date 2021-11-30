@@ -1,14 +1,21 @@
 class Category::Update < Trailblazer::Operation
   class Present < Trailblazer::Operation
     step Model(Category, :find_by)
-    step :error_find
+    fail :error_find
     step Policy::Pundit(Account::Admin::CategoryPolicy, :edit?)
+    fail :error_auth
     step Contract::Build(constant: Category::Contract::Create)
 
-    def error_find(_options, model:, **)
-      return true unless model.nil?
+    def error_find(options, **)
+      options["result.errors"] = {
+        message: "Not found"
+      }
+    end
 
-      false
+    def error_auth(options, **)
+      options["result.errors"] = {
+        message: "Unauthorized"
+      }
     end
   end
 

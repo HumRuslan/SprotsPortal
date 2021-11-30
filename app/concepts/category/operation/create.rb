@@ -6,17 +6,13 @@ class Category::Create < Trailblazer::Operation
   end
 
   step Nested(Present)
-  step :validate
+  step Contract::Validate(key: :category)
+  fail :error_message
   step Contract::Persist()
 
-  def validate(options, model:, **)
-    if options["contract.default"].validate(options["params"]["category"])
-      true
-    else
-      options["contract.default"].errors.messages.each do |k, v|
-        model.errors.add k, :invalid, message: v
-      end
-      false
+  def error_message(options, model:, **)
+    options["contract.default"].errors.messages.each do |k, v|
+      model.errors.add k, :invalid, message: v
     end
   end
 end

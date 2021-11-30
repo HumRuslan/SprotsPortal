@@ -1,6 +1,4 @@
 class Account::Admin::CategoryController < Account::Admin::AdminApplicationController
-  before_action :find_category, only: %i[edit destroy update]
-
   def index
     @categories = Category.includes(:sub_categories).order(created_at: :desc)
     authorize([:account, :admin, @categories])
@@ -13,43 +11,39 @@ class Account::Admin::CategoryController < Account::Admin::AdminApplicationContr
   end
 
   def create
-    run Category::Create do |_result|
+    result = run Category::Create
+    if result.success?
       flash[:notice] = "Category was created"
       return redirect_to account_admin_category_index_url
     end
-    flash[:alert] = "Error to create category"
-    redirect_to account_admin_category_index_url
+    response_js
+    render :new
   end
 
   def edit
-    run Category::Update::Present
+    result = run Category::Update::Present
     response_js
+    return render :not_found unless result.success?
   end
 
   def update
-    run Category::Update do |_result|
+    result = run Category::Update
+    if result.success?
       flash[:notice] = "Category was updated"
       return redirect_to account_admin_category_index_url
     end
-    flash[:alert] = "Error to update category"
-    redirect_to account_admin_category_index_url
+    response_js
+    render :edit
   end
 
   def destroy
-    run Category::Delete
+    result = run Category::Delete
+    raise ActiveRecord::RecordNotFound unless result.success?
+
     redirect_to account_admin_category_index_url
   end
 
   private
-
-  def category_params
-    params.require(:category).permit(:name)
-  end
-
-  def find_category
-    @category = Category.find(params['id'])
-    authorize([:account, :admin, @category])
-  end
 
   def response_js
     respond_to do |format|

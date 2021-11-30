@@ -4,6 +4,7 @@
     %span{"aria-hidden" => "true"} ×
 .modal-body
   = simple_form_for(@model, as: :category, method: :post, url: account_admin_category_index_path, :remote => true) do |f|
+    = f.error_notification
     .col-md-12
       = f.input :name, class: "form-control center"
     .modal-footer
